@@ -1,17 +1,38 @@
+const { parseComplete } = require('pg-protocol/dist/messages');
 const { client } = require('./index');
 
-const createProduct = async ({inventory, brand, colorway, release, retailPrice, inStock, img1, img2, img3 }) => {
+const createProduct = async ({inventory, brand, colorway, name,  release, retailPrice, inStock, img1, img2, img3 }) => {
   try {
+    //Throws Error if Required Parameters are missing
+    if (!brand || !colorway || !name || !retailPrice  ){
+      throw Error('Missing Required Parameters')
+    }
+    //Creates Fields
+    let params = {brand, colorway, name, retailPrice}
+    if (inventory) params['inventory']= inventory
+    if (release) params['release'] = release
+    if (inStock) params['inStock'] = inStock
+    if (img1) params['img1']=img1
+    if (img2) params['img2']=img2
+    if (img3) params['img3']=img3
+
+    //Gives us the ($1, $2, $3)
+    let numbersArray = Object.keys(params).map((parameter, idx)=>{
+
+      return ('$'+(idx+1))
+    })
+    const numbers = numbersArray.join(', ')
+
     const {rows: [product] } = await client.query(`
-    INSERT INTO products(inventory, brand, colorway, release, "retailPrice", "inStock", "img1", "img2", "img3")
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+    INSERT INTO products(${Object.keys(params).join(', ')})
+    VALUES (${numbers})
     RETURNING *;
-    `, [inventory, brand, colorway, release, retailPrice, inStock, img1, img2, img3]);
+    `, Object.values(params));
     return product;
   } catch (error) {
     throw error
   }
-  
+
 }
 
 const getAllProducts = async () => {
