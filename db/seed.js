@@ -1,4 +1,4 @@
-const {client} = require('./index')
+const { client } = require('./index')
 
 async function dropTables() {
     try {
@@ -14,8 +14,8 @@ async function dropTables() {
     }
   }
 
-  async function createTables() {
-      try {
+async function createTables() {
+    try {
         await client.query(`
         CREATE TABLE products (
           id SERIAL PRIMARY KEY,
@@ -23,33 +23,33 @@ async function dropTables() {
           brand TEXT NOT NULL,
           colorway TEXT NOT NULL,
           name TEXT NOT NULL,
-          release TEXT DEFAULT "xxxx-xx-xx",
-          "retailPrice" NUMBER NOT NULL,
-          "inStock" NOT NULL DEFAULT VALUE false,
-          "img1" TEXT DEFAULT (img),
-          "img2" TEXT DEFAULT (img),
-          "img3" TEXT DEFAULT (img)
+          release TEXT DEFAULT 'xxxx-xx-xx',
+          "retailPrice" NUMERIC NOT NULL,
+          "inStock" BOOLEAN DEFAULT false,
+          "img1" TEXT DEFAULT 'img',
+          "img2" TEXT DEFAULT 'img',
+          "img3" TEXT DEFAULT 'img'
         )
       `);
   
       await client.query(`
           CREATE TABLE users (
             id SERIAL PRIMARY KEY,
-            "firstName" NOT NULL,
-            "lastName" NOT NULL,
+            "firstName" VARCHAR(255) NOT NULL,
+            "lastName" VARCHAR(255) NOT NULL,
             email TEXT NOT NULL UNIQUE CHECK (POSITION('@' IN email) > 1),
-            "imgURL" DEFAULT "https://thepowerofthedream.org/wp-content/uploads/2015/09/generic-profile-picture.jpg",
-            username UNIQUE NOT NULL,
-            password UNIQUE NOT NULL,
-            "isAdmin" NOT NULL DEFAULT VALUE false
+            "imgURL" TEXT DEFAULT 'https://thepowerofthedream.org/wp-content/uploads/2015/09/generic-profile-picture.jpg',
+            username VARCHAR(255) UNIQUE NOT NULL,
+            password VARCHAR(255) UNIQUE NOT NULL,
+            "isAdmin" BOOLEAN DEFAULT false
           )
       `);
   
       await client.query(`
             CREATE TABLE orders (
               id SERIAL PRIMARY KEY,
-              status DEFAULT "created",
-              "userId" REFERENCES users(id),
+              status TEXT DEFAULT 'created',
+              "userId" INTEGER REFERENCES users(id),
               "datePlaced" DATE
             )
       `);
@@ -57,10 +57,10 @@ async function dropTables() {
       await client.query(`
             CREATE TABLE order_products (
               id SERIAL PRIMARY KEY,
-              "productId" REFERENCES products(id),
-              "orderId" REFERENCES orders(id),
-              price NOT NULL,
-              quantity NOT NULL DEFAULT VALUE 0
+              "productId" INTEGER REFERENCES products(id),
+              "orderId" INTEGER REFERENCES orders(id),
+              price NUMERIC NOT NULL,
+              quantity INTEGER NOT NULL DEFAULT 0
             )
       `);
       } catch (error) {
