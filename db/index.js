@@ -12,6 +12,6 @@ const {
 } = require('./products');
 // export
 module.exports = {
-  client,
+  client
   // db methods
 }
