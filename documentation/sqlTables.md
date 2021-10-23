@@ -10,7 +10,7 @@
 |colorway  |TEXT NOT NULL |
 |name | TEXT NOT NULL |
 |release  |TEXT DEFAULT "xxxx-xx-xx" |
-|"retailPrice" | NUMBER NOT NULL |
+|retailprice | NUMBER NOT NULL |
 |"inStock" | NOT NULL DEFAULT VALUE false |
 |"img1" | TEXT DEFAULT (img) |
 |"img2" | TEXT DEFAULT (img) |

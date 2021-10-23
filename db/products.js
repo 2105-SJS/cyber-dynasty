@@ -3,6 +3,10 @@ const { client } = require('./client');
 
 const createProduct = async ({inventory, brand, colorway, name,  release, retailprice, inStock, img1, img2, img3 }) => {
   try {
+    console.log('brand: ', brand)
+    console.log('colorway: ', colorway)
+    console.log('name: ', name)
+    console.log('retailprice: ', retailprice)
     //Throws Error if Required Parameters are missing
     if (!brand || !colorway || !name || !retailprice  ){
       throw Error('Missing Required Parameters')

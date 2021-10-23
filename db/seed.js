@@ -24,7 +24,7 @@ async function createTables() {
           colorway TEXT NOT NULL,
           name TEXT NOT NULL,
           release TEXT DEFAULT 'xxxx-xx-xx',
-          "retailPrice" NUMERIC NOT NULL,
+          retailprice NUMERIC NOT NULL,
           "inStock" BOOLEAN DEFAULT false,
           "img1" TEXT DEFAULT 'img',
           "img2" TEXT DEFAULT 'img',
