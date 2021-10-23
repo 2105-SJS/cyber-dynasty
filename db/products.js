@@ -1,14 +1,14 @@
 const { parseComplete } = require('pg-protocol/dist/messages');
-const { client } = require('./index');
+const { client } = require('./client');
 
-const createProduct = async ({inventory, brand, colorway, name,  release, retailPrice, inStock, img1, img2, img3 }) => {
+const createProduct = async ({inventory, brand, colorway, name,  release, retailprice, inStock, img1, img2, img3 }) => {
   try {
     //Throws Error if Required Parameters are missing
-    if (!brand || !colorway || !name || !retailPrice  ){
+    if (!brand || !colorway || !name || !retailprice  ){
       throw Error('Missing Required Parameters')
     }
     //Creates Fields
-    let params = {brand, colorway, name, retailPrice}
+    let params = {brand, colorway, name, retailprice}
     if (inventory) params['inventory']= inventory
     if (release) params['release'] = release
     if (inStock) params['inStock'] = inStock

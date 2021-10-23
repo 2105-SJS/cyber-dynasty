@@ -1,7 +1,7 @@
 // code to build and initialize DB goes here
 const {
   client
-} = require('./index');
+} = require('./client');
 const { dropTables, createTables } = require('./seed')
 const { createProduct,
   getAllProducts,
