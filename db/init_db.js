@@ -1,7 +1,7 @@
 // code to build and initialize DB goes here
 const {
   client
-} = require('./index');
+} = require('./client');
 const { dropTables, createTables } = require('./seed')
 const { createProduct,
   getAllProducts,
@@ -26,7 +26,7 @@ async function buildTables() {
 
 async function populateInitialData() {
   try {
-    const product1 = await createProduct({inventory: 5, brand: 'Nike', colorway: 'blue', name: 'Air', retailPrice: 50, inStock: true});
+    const product1 = await createProduct({inventory: 5, brand: 'Nike', colorway: 'blue', name: 'Air', retailprice: 50, inStock: true});
     const allProducts = await getAllProducts();
     const byId = await getProductById(1);
     console.log('Product: ', product1 )
