@@ -5,11 +5,14 @@ import { BrowserRouter } from 'react-router-dom';
 import {
   App, Navbar
 } from './components';
+import { UserProvider } from './context/userContext';
 
 ReactDOM.render(
 <BrowserRouter>
-<Navbar/>
-  <App />
+  <UserProvider>
+    <Navbar/>
+    <App />
+  </UserProvider>
 </BrowserRouter>,
   document.getElementById('root')
 );
