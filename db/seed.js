@@ -22,13 +22,12 @@ async function createTables() {
           inventory INTEGER DEFAULT 10 NOT NULL,
           brand TEXT NOT NULL,
           colorway TEXT NOT NULL,
-          name TEXT NOT NULL,
-          release TEXT DEFAULT 'xxxx-xx-xx',
+          "shoeName" TEXT NOT NULL,
+          "releaseDate" TEXT DEFAULT 'xxxx-xx-xx',
           "retailPrice" NUMERIC NOT NULL,
           "inStock" BOOLEAN DEFAULT false,
-          "img1" TEXT DEFAULT 'img',
-          "img2" TEXT DEFAULT 'img',
-          "img3" TEXT DEFAULT 'img'
+          thumbnail TEXT DEFAULT 'img',
+          "resellPrice" NUMERIC NOT NULL
         )
       `);
   
