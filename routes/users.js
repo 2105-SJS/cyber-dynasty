@@ -17,7 +17,7 @@ usersRouter.use((req, res, next) => {
 });
 
 // GET /users/me
-usersRouter.get('/', requireUser, async (req, res, next) => {
+usersRouter.get('/me', requireUser, async (req, res, next) => {
     const { id } = req.user;
     try {
         const user = await getUserById(id);
@@ -32,14 +32,12 @@ usersRouter.get('/', requireUser, async (req, res, next) => {
 //POST /users/login
 usersRouter.post('/login', async (req, res, next) => {
     const { username, password } = req.body;
-    console.log('username from userRouter: ', req.body)
     if (!username || !password) {
         next ({
             name: 'MissingCredentialsError',
             message: 'Please supply both a username and password'
         });
     }
-
     try {
         const user = await getUserByUsername({username});
         const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
@@ -61,36 +59,32 @@ usersRouter.post('/login', async (req, res, next) => {
 
 //POST /users/register
 usersRouter.post('/register', async (req, res, next) => {
-    const { username, password, name } = req.body;
-
+    const { firstName, lastName, email, username, password } = req.body;
     try {
-        const _user = await getUserByUsername(username);
-
+        const _user = await getUserByUsername({username});
         if (_user) {
             next({
                 name: 'UserExistsError',
                 message: 'A user by that username already exists'
             });
-        };
-
-        const user = await createUser({
-            username,
-            password,
-            name,
-        });
-
-        const token = jwt.sign({
-            id: user.id,
-            username
-        }, JWT_SECRET, {
-            expiresIn: '1w'
-        });
-
-        res.send({
-            message: 'Thank you for signing up',
-            token
-        });
-
+        } else if (password.length < 8) {
+            next({
+                name: 'Error',
+                message: 'Password is too short'
+            });
+        } else {
+            const user = await createUser({
+                firstName,
+                lastName,
+                email,
+                username,
+                password
+            });
+            res.send({ 
+                message: "thank you for signing up",
+                user
+            });
+        }
     } catch({ name, message}) {
         next({ name, message })
     }
