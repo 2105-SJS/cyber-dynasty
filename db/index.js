@@ -6,3 +6,5 @@ const {
   getAllProducts,
   getProductById
 } = require('./products');
+
+module.exports = { createProduct, getAllProducts, getProductById}
