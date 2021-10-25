@@ -1,10 +1,14 @@
 const express = require('express');
 const usersRouter = express.Router();
 
+const bcrypt = require('bcrypt');
+const SALT_COUNT = 10;
+
 const { JWT_SECRET } = process.env;
 const jwt = require('jsonwebtoken');
 
-const { getAllUsers, getUserByUsername, createUser } = require('../db');
+const { getAllUsers, getUserByUsername, createUser, getUserById } = require('../db/users');
+const { requireUser } = require('./util')
 
 usersRouter.use((req, res, next) => {
     console.log('A request is being made to /users');
@@ -13,18 +17,22 @@ usersRouter.use((req, res, next) => {
 });
 
 // GET /users/me
-usersRouter.get('/', async (req, res) => {
-    const users = await getAllUsers();
-
-    res.send({
-        users
-    });
+usersRouter.get('/', requireUser, async (req, res, next) => {
+    const { id } = req.user;
+    try {
+        const user = await getUserById(id);
+        if(user) {
+            res.send(user);
+        }
+    } catch (error) {
+        next(error);
+    }
 });
 
 //POST /users/login
 usersRouter.post('/login', async (req, res, next) => {
     const { username, password } = req.body;
-
+    console.log('username from userRouter: ', req.body)
     if (!username || !password) {
         next ({
             name: 'MissingCredentialsError',
@@ -33,10 +41,11 @@ usersRouter.post('/login', async (req, res, next) => {
     }
 
     try {
-        const user = await getUserByUsername(username);
-
-        if (user && user.password === password) {
-            const token = jwt.sign(user, JWT_SECRET)
+        const user = await getUserByUsername({username});
+        const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
+        const passwordMatch = await bcrypt.compare(password, hashedPassword)
+        if (user && passwordMatch) {
+            const token = jwt.sign({id: user.id, username}, process.env.JWT_SECRET)
             res.send({ message: `You're logged in!`, token: `${token}` });
         } else {
             next({
@@ -87,4 +96,4 @@ usersRouter.post('/register', async (req, res, next) => {
     }
 });
 
-module.exports = router;
+module.exports = usersRouter;
