@@ -3,7 +3,7 @@ const apiRouter = require('express').Router();
 const productsRouter = require('./products');
 
 const usersRouter = require('./users');
-router.use('/users', usersRouter);
+apiRouter.use('/users', usersRouter);
 
 apiRouter.get("/", (req, res, next) => {
   res.send({
