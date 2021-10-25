@@ -1,15 +1,14 @@
 const bcrypt = require('bcrypt');
 const SALT_COUNT = 10;
 
-const client = require('./client');
+const {client} = require('./client');
 
 const createUser = async ({ firstName, lastName, email, username, password }) => {
     try {
         const hashedPassword = await bcrypt.hash(password, SALT_COUNT);
-        const { rows: [user] } = client.query(`
+        const { rows: [user] } = await client.query(`
             INSERT INTO users("firstName", "lastName", email, username, password)
             VALUES ($1, $2, $3, $4, $5)
-            ON CONFLICT ("firstName", "lastName", username) DO NOTHING
             RETURNING id, "firstName", "lastName", username;
         `, [firstName, lastName, email, username, hashedPassword]);
         return user;
@@ -20,7 +19,7 @@ const createUser = async ({ firstName, lastName, email, username, password }) =>
 
 const getUser = async ({ username, password }) => {
     try {
-        const { rows: [user] } = client.query(`
+        const { rows: [user] } = await client.query(`
             SELECT *
             FROM users
             WHERE username = $1
@@ -38,7 +37,7 @@ const getUser = async ({ username, password }) => {
 
 const getAllUsers = async () => {
     try {
-        const users = client.query(`
+        const users = await client.query(`
             SELECT *
             FROM users
             RETURNING *;
@@ -52,7 +51,7 @@ const getAllUsers = async () => {
 
 const getUserById = async (id) => {
     try {
-        const { rows: [user] } = client.query(`
+        const { rows: [user] } = await client.query(`
             SELECT *
             FROM users
             WHERE id=$1
@@ -65,7 +64,7 @@ const getUserById = async (id) => {
 
 const getUserByUsername = async ({username}) => {
     try {
-        const { rows: [user] } = client.query(`
+        const { rows: [user] } = await client.query(`
             SELECT *
             FROM users
             WHERE username=$1
