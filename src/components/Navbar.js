@@ -10,12 +10,7 @@ const Navbar =()=>{
         <Link to='/home'>Home</Link>
         <Link to='/profile'>Profile</Link>
         <Link to='/products'>Products</Link>
-        {isLoggedIn ? <Link to='/home' onClick={()=>{
-            setIsLoggedIn(false)
-            setToken('')
-            localStorage.setItem('token', '')
-
-        }}>Log out</Link>:
+        {isLoggedIn ? <Link to='/home'>Log out</Link>:
         <>
             <Link to='/accounts/register'>Register</Link>
             <Link to='/accounts/login'>Login</Link>
