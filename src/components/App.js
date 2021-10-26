@@ -12,10 +12,6 @@ const App = () => {
   const [message, setMessage] = useState('');
   const [products, setProducts] = useState([]);
 
-  // const fetchProducts = async () => {
-
-  // }
-
   useEffect(() => {
     getSomething()
       .then(response => {
@@ -33,12 +29,6 @@ return (
     </Route>
   </BrowserRouter>
 )
-  // (
-  //   <div className="App">
-  //     <h1>Hello, World!</h1>
-  //     <h2>{ message }</h2>
-  //   </div>
-  // );
 }
 
 export default App;
