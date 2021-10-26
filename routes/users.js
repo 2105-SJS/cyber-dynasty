@@ -4,8 +4,7 @@ const usersRouter = express.Router();
 const bcrypt = require('bcrypt');
 const SALT_COUNT = 10;
 
-// const { JWT_SECRET } = process.env;
-const JWT_SECRET = "DonNotWell"
+const { JWT_SECRET = "DonNotWell" } = process.env;
 const jwt = require('jsonwebtoken');
 
 const { getAllUsers, getUserByUsername, createUser, getUserById } = require('../db/users');
