@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Route, Link } from 'react-router-dom';
 
+import { Navbar } from '.';
 import {
   getSomething
 } from '../api';
 
+import { Products } from '../components';
+
 const App = () => {
   const [message, setMessage] = useState('');
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
     getSomething()
@@ -17,12 +22,13 @@ const App = () => {
       });
   });
 
-  return (
-    <div className="App">
-      <h1>Hello, World!</h1>
-      <h2>{ message }</h2>
-    </div>
-  );
+return (
+  <BrowserRouter>
+    <Route exact path='/products/:productId'>
+      <Products />
+    </Route>
+  </BrowserRouter>
+)
 }
 
 export default App;

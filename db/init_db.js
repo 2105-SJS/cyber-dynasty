@@ -1,29 +1,42 @@
 // code to build and initialize DB goes here
 const {
   client
-  // other db methods 
-} = require('./index');
+} = require('./client');
+const { dropTables, createTables } = require('./seed')
+const { createProduct,
+  getAllProducts,
+  getProductById } = require('./products');
+const { all } = require('../routes');
 
 async function buildTables() {
   try {
-    client.connect();
+    await client.connect();
+    console.log("Starting dropping the tables........")
+    await dropTables();
 
-    // drop tables in correct order
+    console.log("Drop table success, Starting creating the tables.....")
+    await createTables();
 
-    // build tables in correct order
-
+    console.log("Success creating the tables!!")
   } catch (error) {
     throw error;
   }
 }
+
 
 async function populateInitialData() {
   try {
-    // create useful starting data
+    const product1 = await createProduct({inventory: 5, brand: 'Nike', colorway: 'blue', shoeName: 'Air', retailPrice: 50, inStock: true, releaseDate: '2004-03-04', thumbnail: "image", resellPrice: 30});
+    const allProducts = await getAllProducts();
+    const byId = await getProductById(1);
+    console.log('Product: ', product1 )
+    console.log('allProducts: ', allProducts )
+    console.log('ById: ', byId )
   } catch (error) {
     throw error;
   }
 }
+
 
 buildTables()
   .then(populateInitialData)
