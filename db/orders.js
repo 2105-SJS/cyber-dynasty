@@ -26,6 +26,19 @@ const getAllOrders = () =>{
     }
 }
 
+const getOrderByUser = ({id})=>{
+    try{
+        if(!id)throw Error('missing user id')
+
+        const {rows:[order]} = client.query(`
+        SELECT * from orders 
+        WHERE "userId" = $1
+        `, [id])
+    }catch(error){
+        throw error
+    }
+}
+
 
 
 
