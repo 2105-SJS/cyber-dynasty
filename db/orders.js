@@ -34,6 +34,8 @@ const getOrderByUser = ({id})=>{
         SELECT * from orders 
         WHERE "userId" = $1
         `, [id])
+
+        return order
     }catch(error){
         throw error
     }
