@@ -26,7 +26,7 @@ const getAllOrders = () =>{
     }
 }
 
-const getOrderByUser = ({id})=>{
+const getOrdersByUser = ({id})=>{
     try{
         if(!id)throw Error('missing user id')
 
