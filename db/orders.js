@@ -2,10 +2,10 @@ const {client} = require('./client')
 
 
 //TODO: add products to order
-const getOrderById=(id)=>{
+const getOrderById=async (id)=>{
 try{
         if(!id)throw Error('missing order id')
-        const {rows:[order]}=client.query(`
+        const {rows:[order]}= await client.query(`
         SELECT * FROM orders
         WHERE id=$1`,[id])
         return order;
@@ -15,10 +15,10 @@ try{
     }
 }
 
-const getAllOrders = () =>{
+const getAllOrders = async  () =>{
     try{
 
-        const {rows:orders}=client.query(`SELECT * FROM orders`)
+        const {rows:orders}= await client.query(`SELECT * FROM orders`)
 
         return orders
     }catch(error){
@@ -26,11 +26,11 @@ const getAllOrders = () =>{
     }
 }
 
-const getOrdersByUser = ({id})=>{
+const getOrdersByUser = async ({id})=>{
     try{
         if(!id)throw Error('missing user id')
 
-        const {rows:[order]} = client.query(`
+        const {rows:[order]} = await client.query(`
         SELECT * from orders 
         WHERE "userId" = $1
         `, [id])
@@ -42,13 +42,13 @@ const getOrdersByUser = ({id})=>{
 }
 
 
-const getCartByUser = ({id}) =>{
+const getCartByUser = async ({id}) =>{
 
     try{
 
         if(!id) throw Error('missing id Parameter')
 
-        const {rows:[cart]} = client.query(`
+        const {rows:[cart]} = await client.query(`
         SELECT * FROM orders
         WHERE "userId"=$1, status='created'`, [id])
 
@@ -58,7 +58,7 @@ const getCartByUser = ({id}) =>{
     }
 } 
 
-const createOrder = ({status, userId}) =>{
+const createOrder = async ({status, userId}) =>{
 
     try{
         if(!status){status='created'}
@@ -66,7 +66,7 @@ const createOrder = ({status, userId}) =>{
 
 
 
-        const  {rows:[order]} = client.query(`
+        const  {rows:[order]} = await  client.query(`
         INSERT INTO orders(status, "userId")
         VALUES($1, $2)
         RETURNING *
