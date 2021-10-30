@@ -42,6 +42,45 @@ const getOrdersByUser = ({id})=>{
 }
 
 
+const getCartByUser = ({id}) =>{
+
+    try{
+
+        if(!id) throw Error('missing id Parameter')
+
+        const {rows:[cart]} = client.query(`
+        SELECT * FROM orders
+        WHERE "userId"=$1, status='created'`, [id])
+
+        return cart
+    }catch(error){
+        throw error
+    }
+} 
+
+const createOrder = ({status, userId}) =>{
+
+    try{
+        if(!status){status='created'}
+        if(!userId)throw Error('missing userId')
+
+
+
+        const  {rows:[order]} = client.query(`
+        INSERT INTO orders(status, "userId")
+        VALUES($1, $2)
+        RETURNING *
+        `,[status, userId])
+
+        return order
+
+
+    }catch(error){
+        throw error
+    }
+}
+
+
 
 
 
