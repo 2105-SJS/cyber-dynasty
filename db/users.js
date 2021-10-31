@@ -11,7 +11,10 @@ const createUser = async ({ firstName, lastName, email, username, password }) =>
             VALUES ($1, $2, $3, $4, $5)
             RETURNING id, "firstName", "lastName", username;
         `, [firstName, lastName, email, username, hashedPassword]);
-        return user;
+        if(!user) {
+            return("no user")
+        }
+        return user
     } catch (error) {
         throw error;
     }

@@ -12,8 +12,8 @@ const Test = () => {
                   body: {
                       firstName: "Xavier",
                       lastName: "Florex",
-                      email: "Xavier@gmail.com",
-                      username: "Xavier",
+                      email: "Xavier514@gmail.com",
+                      username: "Xavier514",
                       password: "xavierXavier"
                   } });
                   console.log(user, "it worked");
