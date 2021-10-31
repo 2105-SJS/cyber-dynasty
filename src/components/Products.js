@@ -1,8 +1,13 @@
 import React from 'react';
 
-const Products = () => {
+import { ProductSingle } from '.';
+
+const Products = ({ products }) => {
+    console.log('products in products.js ', products)
     return <>
-        <h1>Products</h1>
+    {
+        products.map(product => <ProductSingle product={product} key={product.id} />)
+    }
     </>
 }
 
