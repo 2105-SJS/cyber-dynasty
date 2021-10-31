@@ -26,7 +26,7 @@ const App = () => {
 
 return (
   <BrowserRouter>
-    <Test />
+    {/* <Test /> */}
     <Route exact path='/products/:productId'>
       <Products />
     </Route>
