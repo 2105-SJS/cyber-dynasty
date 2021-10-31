@@ -5,16 +5,20 @@ import {
   getSomething
 } from '../api';
 
+
 import { 
   Products,
   Login,
-  ProductsView
+  ProductsView,
+  Register, Test
 } from '../components';
 import { callApi } from './util';
+
 
 const App = () => {
   const [message, setMessage] = useState('');
   const [products, setProducts] = useState([]);
+
   const [ user, setUser ] = useState('');
   const [ token, setToken ] = useState('');
 
@@ -38,6 +42,7 @@ const App = () => {
     }
   }, [token])
 
+
   useEffect(() => {
     getSomething()
       .then(response => {
@@ -50,14 +55,20 @@ const App = () => {
 
 return (
   <BrowserRouter>
+
     <Route exact path='/products'>
       <Products products={products} token={token} />
     </Route>
+    {/* <Test /> */}
+
     <Route exact path='/products/:productId'>
       <Products products={products} token={token} />
     </Route>
     <Route exact path='/accounts/login'>
       <Login setUser={setUser} setToken={setToken} />
+    </Route>
+    <Route path='/accounts/register'>
+      <Register setUser = {setUser} token = {token} setToken = {setToken}/>
     </Route>
   </BrowserRouter>
 )

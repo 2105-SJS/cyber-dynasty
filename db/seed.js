@@ -1,5 +1,5 @@
 const { client } = require('./client')
-
+const { newProducts } = require('../sneakerapi/SneakerData')
 async function dropTables() {
     try {
       await client.query(`
