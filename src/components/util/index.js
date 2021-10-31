@@ -1,7 +1,4 @@
-const { }
-
 export const callApi = async ({ url, method, token, body }) => {
-    const history = useHistory();
     try {
         const options = {
             method: method ? method.toUpperCase() : 'GET',
@@ -11,11 +8,13 @@ export const callApi = async ({ url, method, token, body }) => {
             body: JSON.stringify(body)
         };
         if (token) options.headers['Authorization'] = `Bearer ${token}`;
-        const response = await fetch(`${REACT_APP_BASE_URL}${url}`, options);
+        const response = await fetch(`/api${url}`, options);
+        console.log('in callApi:', response)
         const data = await response.json();
         if(data.error) {
-             (data.error);
+             alert(data.error);
         }
+        console.log('data in callApi: ', data)
         return data;
     } catch (error) {
         console.error(error)
