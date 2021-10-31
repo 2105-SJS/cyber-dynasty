@@ -41,6 +41,21 @@ const getOrdersByUser = async ({id})=>{
     }
 }
 
+const getOrdersByProduct = async ({id})=>{
+    try{
+        if(!id)throw Error('missing product id')
+
+        const {rows:[order]} = await client.query(`
+        SELECT * from order
+        WHERE "userId" = $1
+        `, [id])
+
+        return order
+    }catch(error){
+        throw error
+    }
+}
+
 
 const getCartByUser = async ({id}) =>{
 
@@ -57,6 +72,8 @@ const getCartByUser = async ({id}) =>{
         throw error
     }
 } 
+
+
 
 const createOrder = async ({status, userId}) =>{
 
@@ -99,9 +116,10 @@ const createOrder = async ({status, userId}) =>{
 
 module.exports = {
     getOrderById,
-
-
-
+    getAllOrders,
+    getCartByUser,
+    getOrdersByUser,
+    createOrder
 
 
 }
