@@ -6,11 +6,13 @@ import {
   getSomething
 } from '../api';
 
-import { Products } from '../components';
+import { Products, Register, Test } from '../components';
 
 const App = () => {
   const [message, setMessage] = useState('');
   const [products, setProducts] = useState([]);
+  const [user, setUser] = useState('');
+  const [token, setToken] = useState('');
 
   useEffect(() => {
     getSomething()
@@ -24,8 +26,12 @@ const App = () => {
 
 return (
   <BrowserRouter>
+    <Test />
     <Route exact path='/products/:productId'>
       <Products />
+    </Route>
+    <Route path='/accounts/register'>
+      <Register setUser = {setUser} token = {token} setToken = {setToken}/>
     </Route>
   </BrowserRouter>
 )
