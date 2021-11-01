@@ -30,7 +30,7 @@ const getOrdersByUser = async ({id})=>{
     try{
         if(!id)throw Error('missing user id')
 
-        const {rows:[order]} = await client.query(`
+        const {rows:order} = await client.query(`
         SELECT * from orders 
         WHERE "userId" = $1
         `, [id])
