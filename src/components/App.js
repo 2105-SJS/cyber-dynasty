@@ -54,8 +54,7 @@ const App = () => {
   });
 
 return (
-  <BrowserRouter>
-
+  <div>
     <Route exact path='/products'>
       <Products products={products} token={token} />
     </Route>
@@ -65,12 +64,12 @@ return (
       <Products products={products} token={token} />
     </Route>
     <Route exact path='/accounts/login'>
-      <Login setUser={setUser} setToken={setToken} />
+      <Login setUser={setUser} setToken={setToken} /> 
     </Route>
     <Route path='/accounts/register'>
       <Register setUser = {setUser} token = {token} setToken = {setToken}/>
     </Route>
-  </BrowserRouter>
+  </div>
 )
 }
 
