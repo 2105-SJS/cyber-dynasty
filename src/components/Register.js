@@ -13,11 +13,7 @@ const Register = ({ setUser, token, setToken }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-    console.log(firstName, "firstName")
-    console.log(lastName, "firstName")
-    console.log(email, "firstName")
-    console.log(username, "firstName")
-    console.log(password, "firstName")
+    
 
 //   const params = useParams();
   const history = useHistory();

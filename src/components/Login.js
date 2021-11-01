@@ -20,9 +20,10 @@ const Login = ({setToken, setUser}) => {
             });
             console.log('loginResp: ', loginResp)
             if(loginResp) {
-                const userResp = await callApi({url: 'users/me', token: loginResp.token});
+                // const userResp = await callApi({url: '/users/me', token: loginResp.token});
                 setToken(loginResp.token);
-                setUser(userResp.username);
+                // console.log(userResp, "userResp")
+                setUser(username);
                 if(loginResp.token) {
                     history.push('/');
                 }

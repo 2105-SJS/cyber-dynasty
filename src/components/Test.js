@@ -6,6 +6,7 @@ const Test = () => {
     return (
         <button onClick = { async() => {
                 try {
+                  console.log("anything45")
                   const user = await callApi({ 
                   url: '/users/register',
                   method: "POST",
