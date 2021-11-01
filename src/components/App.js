@@ -54,7 +54,7 @@ const App = () => {
   });
 
 return (
-  <BrowserRouter>
+  <div>
 
     <Route exact path='/products'>
       <Products products={products} token={token} />
@@ -67,10 +67,10 @@ return (
     <Route exact path='/accounts/login'>
       <Login setUser={setUser} setToken={setToken} />
     </Route>
-    <Route path='/accounts/register'>
+    <Route exact path='/accounts/register'>
       <Register setUser = {setUser} token = {token} setToken = {setToken}/>
     </Route>
-  </BrowserRouter>
+  </div>
 )
 }
 
