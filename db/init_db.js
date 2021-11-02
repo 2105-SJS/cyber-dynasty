@@ -33,7 +33,6 @@ async function populateInitialData() {
     await newProducts();
     const allProducts = await getAllProducts();
     const byId = await getProductById(1);
-    // console.log('Product: ', product1 )
     console.log('allProducts: ', allProducts )
     console.log('ById: ', byId )
     console.log("ShiB FRRRRRRR", allProducts.length)

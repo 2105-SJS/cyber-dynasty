@@ -5,7 +5,6 @@ const { getAllProducts, getProductById } = require('../db/products');
 productsRouter.get('/', async (req, res, next) => {
     try {
         const products = await getAllProducts();
-        console.log(products.length, 'mangomango')
         res.send(products);
     } catch (error) {
         next(error)
