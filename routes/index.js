@@ -13,4 +13,9 @@ apiRouter.get("/", (req, res, next) => {
 
 apiRouter.use('/products', productsRouter);
 
+apiRouter.use((error, req, res, next) => {
+  console.error(error)
+  res.status(400)
+  res.send(error);
+});
 module.exports = apiRouter;
