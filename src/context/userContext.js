@@ -7,6 +7,8 @@ export const UserProvider = ({children})=>{
     const [token, setToken] = useState('')
     const [isLoggedIn, setIsLoggedIn] = useState(false)
 
+
+    
     return <UserContext.Provider value ={{
         token, 
         setToken,
