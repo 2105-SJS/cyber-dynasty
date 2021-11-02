@@ -8,7 +8,7 @@ const ProductSingle = ({ product }) => {
             <div>ColorWay: {product.colorway}</div>
             <div>Shoe Name: {product.shoeName}</div>
             <div>Retail Price: {product.retailPrice}</div>
-            <div>inStock?: {product.inStock ? 'true' : 'false'}</div>
+            <div>inStock? {product.inStock ? 'true' : 'false'}</div>
         </div>
         : 'Loading......')
 }
