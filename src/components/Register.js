@@ -13,9 +13,7 @@ const Register = ({ setUser, token, setToken }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-    
-
-//   const params = useParams();
+  
   const history = useHistory();
 
   const handleRegister = async (event) => {

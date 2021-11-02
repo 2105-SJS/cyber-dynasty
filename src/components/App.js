@@ -58,15 +58,13 @@ return (
     <Route exact path='/products'>
       <Products products={products} token={token} />
     </Route>
-    {/* <Test /> */}
-
     <Route exact path='/products/:productId'>
       <Products products={products} token={token} />
     </Route>
     <Route exact path='/accounts/login'>
-      <Login setUser={setUser} setToken={setToken} /> 
+      <Login setUser={setUser} setToken={setToken} />
     </Route>
-    <Route path='/accounts/register'>
+    <Route exact path='/accounts/register'>
       <Register setUser = {setUser} token = {token} setToken = {setToken}/>
     </Route>
   </div>
