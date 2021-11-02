@@ -1,13 +1,30 @@
 
-# The Smallest Starting Point!!
 
 
-So, you want to build a full-stack JavaScript application with:
+A full-stack JavaScript application with:
 
 - An Express web server
 - A PostgreSQL database
 - A React front-end
 
+
+Grace Shopper
+An app for buying different brands of sneaker.
+
+- An e-commerce web application, where anyone can browse and buy different brands of sneakers with or without creating an account. Items are categorized and there is a way to search for the categories.
+- If you have an account, you can see your order history, wishlist, and your shopping cart on multiple devices.
+
+Authors
+- Xavier Loera Flores
+- Rubal Kaur
+- Jimmy Dang
+- Aaron Rosati
+
+
+
+
+
+# The Smallest Starting Point!!
 And you want it to work locally as well as be easy to deploy?
 
 We've got your back:
@@ -15,7 +32,6 @@ We've got your back:
 ## Local Development
 
 ### Setting Up
-
 First, clone this repo locally.
 
 Then, run `npm install` to install all node modules.

@@ -14,7 +14,19 @@ productsRouter.get('/', async (req, res, next) => {
 productsRouter.get('/:productId', async (req, res, next) => {
     try {
         const { productId } = req.params;
+        if (!productId) {
+            next ({
+                name: 'badRequestError',
+                message: 'Product Id was not provided'
+            });
+        }
         const productById = await getProductById(productId);
+        if (!productById) {
+            next ({
+                name: 'productSearchError',
+                message: 'Product with ID was not found'
+            });
+        }
         res.send(productById);
     } catch (error) {
         next(error)

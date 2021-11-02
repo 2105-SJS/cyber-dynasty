@@ -4,8 +4,7 @@ const usersRouter = express.Router();
 const bcrypt = require('bcrypt');
 const SALT_COUNT = 10;
 
-// const { JWT_SECRET } = process.env;
-const JWT_SECRET = "DonNotWell"
+const { JWT_SECRET = "DonNotWell" } = process.env;
 const jwt = require('jsonwebtoken');
 
 const { getAllUsers, getUserByUsername, createUser, getUserById } = require('../db/users');
@@ -21,9 +20,21 @@ usersRouter.use((req, res, next) => {
 usersRouter.get('/me', requireUser, async (req, res, next) => {
     const { id } = req.user;
     try {
+        if(!id){
+            next({
+                name:'badRequestError',
+                message:`User token with ID was not provided`
+            })
+        }
+
         const user = await getUserById(id);
         if(user) {
             res.send(user);
+        }else{
+            next({
+                name:'getUserError',
+                message:`Couldn't find user`
+            })
         }
     } catch (error) {
         next(error);
@@ -70,7 +81,7 @@ usersRouter.post('/register', async (req, res, next) => {
             });
         } else if (password.length < 8) {
             next({
-                name: 'Error',
+                name: 'PasswordLengthError',
                 message: 'Password is too short'
             });
         } else {
@@ -81,6 +92,12 @@ usersRouter.post('/register', async (req, res, next) => {
                 username,
                 password
             });
+            if(!user){
+                next({
+                    name:'CreateUserError',
+                    message:'Error in Creating User'
+                })
+            }
             res.send({ 
                 message: "thank you for signing up",
                 user
