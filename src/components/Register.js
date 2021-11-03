@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router";
-// import { useContext } from "react";
-// import { UserContext } from "../context/UserContext";
+import { useContext } from "react";
+import { UserContext } from "../context/userContext";
 import { callApi } from "./util";
 
 
 const Register = ({ setUser, token, setToken }) => {
-//   const { isLoggedIn, setIsLoggedIn, setUserToken, setUser } =
-    // useContext(UserContext);
+  const { isLoggedIn, setIsLoggedIn, setUserToken } = useContext(UserContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -34,6 +33,7 @@ const Register = ({ setUser, token, setToken }) => {
         localStorage.setItem("token", token);
         setToken(user.token);
         setUser(user.username);
+        setIsLoggedIn(true)
         history.push("/");
       }
     } catch (error) {
