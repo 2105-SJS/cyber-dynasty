@@ -1,6 +1,11 @@
 
 const apiRouter = require('express').Router();
 const productsRouter = require('./products');
+// const JWT_SECRET = process.env.JWT_SECRET;
+const { JWT_SECRET = "DonNotWell" } = process.env;
+const jwt = require('jsonwebtoken');
+
+const { getUserById } = require('../db/users')
 
 
 apiRouter.use(async (req, res, next) => {
@@ -13,7 +18,7 @@ apiRouter.use(async (req, res, next) => {
     const token = auth.slice(prefix.length);
     
     try {
-      const { id } = jwt.verify(token, JWT_SECRET);
+      const { id } = jwt.verify(token, "DonNotWell");
       
       if (id) {
         req.user = await getUserById(id);
@@ -42,6 +47,7 @@ const usersRouter = require('./users');
 apiRouter.use('/users', usersRouter);
 
 const ordersRouter = require('./orders');
+const { requireUser } = require('./util');
 apiRouter.use('/orders', ordersRouter);
 
 apiRouter.use((error, req, res, next) => {

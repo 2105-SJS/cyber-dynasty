@@ -59,7 +59,7 @@ return (
       <Products products={products} token={token} />
     </Route>
     <Route exact path='/products/:productId'>
-      <Products products={products} token={token} />
+      <ProductsView products={products} token={token} />
     </Route>
     <Route exact path='/accounts/login'>
       <Login setUser={setUser} setToken={setToken} />

@@ -2,6 +2,7 @@ const express = require('express');
 const productsRouter = express.Router();
 const { getAllProducts, getProductById } = require('../db/products');
 
+// GET /products
 productsRouter.get('/', async (req, res, next) => {
     try {
         const products = await getAllProducts();
@@ -11,6 +12,7 @@ productsRouter.get('/', async (req, res, next) => {
     }
 });
 
+// GET /products/:productId
 productsRouter.get('/:productId', async (req, res, next) => {
     try {
         const { productId } = req.params;
