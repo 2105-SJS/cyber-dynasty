@@ -25,7 +25,6 @@ async function buildTables() {
   }
 }
 
-
 async function populateInitialData() {
   try {
     const product1 = await createProduct({inventory: 5, brand: 'Nike', colorway: 'blue', shoeName: 'Air', retailPrice: 50, inStock: true, releaseDate: '2004-03-04', thumbnail: "image", resellPrice: 30});
@@ -33,14 +32,10 @@ async function populateInitialData() {
     await newProducts();
     const allProducts = await getAllProducts();
     const byId = await getProductById(1);
-    console.log('allProducts: ', allProducts )
-    console.log('ById: ', byId )
-    console.log("ShiB FRRRRRRR", allProducts.length)
   } catch (error) {
     throw error;
   }
 }
-
 
 buildTables()
   .then(populateInitialData)

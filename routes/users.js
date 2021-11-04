@@ -9,6 +9,7 @@ const jwt = require('jsonwebtoken');
 
 const { getAllUsers, getUserByUsername, createUser, getUserById } = require('../db/users');
 const { requireUser } = require('./util')
+const { getOrdersByUser } = require('../db/orders')
 
 usersRouter.use((req, res, next) => {
     console.log('A request is being made to /users');
@@ -26,7 +27,6 @@ usersRouter.get('/me', requireUser, async (req, res, next) => {
                 message:`User token with ID was not provided`
             })
         }
-
         const user = await getUserById(id);
         if(user) {
             res.send(user);
@@ -107,5 +107,16 @@ usersRouter.post('/register', async (req, res, next) => {
         next({ name, message })
     }
 });
+
+// GET /users/:userId/orders
+usersRouter.get('/:userId/orders', requireUser, async (req, res, next) => {
+    const id = req.user.id;
+    try {
+        const userOrders = await getOrdersByUser({id});
+        res.send(userOrders)
+    } catch ({name, message}) {
+        next({name, message})
+    }
+})
 
 module.exports = usersRouter;

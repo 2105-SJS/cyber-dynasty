@@ -2,9 +2,10 @@ const express = require('express');
 const { getAllProducts } = require('../db');
 const ordersRouter = express.Router();
 
-const { getAllOrders, getCartByUser } = require('../db');
+const { getAllOrders, getCartByUser, createOrder } = require('../db');
 const { requireUser } = require('./util');
 
+// GET /orders
 ordersRouter.get('/', async (req, res, next) => {
     try {
         const orders = await getAllOrders();
@@ -17,8 +18,8 @@ ordersRouter.get('/', async (req, res, next) => {
     }
 });
 
+// GET /orders/cart
 ordersRouter.get('/cart', requireUser, async (req, res, next) => {
-    console.log('>>>>>>>id', req.user)
     const { id } = req.user;
     try {
         const cartOrders = await getCartByUser({id});
@@ -31,6 +32,19 @@ ordersRouter.get('/cart', requireUser, async (req, res, next) => {
     }
 });
 
-
+// POST /orders
+ordersRouter.post('/', requireUser, async (req, res, next) => {
+    console.log('>>>>>>>>>>>>>>', req.body)
+    const { status, userId } = req.body;
+    try {
+        const newOrder = await createOrder({status, userId});
+        res.send({newOrder})
+    } catch ({name, message}) {
+        next({
+            name,
+            message
+        })
+    }
+});
 
 module.exports = ordersRouter
