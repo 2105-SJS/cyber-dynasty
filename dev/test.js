@@ -6,7 +6,8 @@ const {
     createOrder
 } = require('../db/orders')
 const {
-     createUser
+     createUser,
+     getAllUsers
 } = require('../db/users')
 
 const {
@@ -60,9 +61,21 @@ const testOrders = async ()=>{//all orders work
 
 
 }
+const testUsers = async () => {
+
+    try {
+        console.log('mango')
+        
+        const thePeople = await getAllUsers();
+        console.log(thePeople, "gangang")
+    }catch(error){
+        throw error
+    }
+}
 
 
 module.exports ={
-    testOrders
+    testOrders,
+    testUsers
 }
 // testOrders()

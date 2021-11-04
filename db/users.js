@@ -43,7 +43,6 @@ const getAllUsers = async () => {
         const users = await client.query(`
             SELECT *
             FROM users
-            RETURNING *;
         `);
         delete users.password;
         return users;
