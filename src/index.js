@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 
 import {
-  App, Navbar
+  App, Navbar, Login
 } from './components';
 import { UserProvider } from './context/userContext';
 

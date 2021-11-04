@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { callApi } from './util';
+import { UserContext } from "../context/userContext";
 
-const Login = ({setToken, setUser}) => {
+const Login = ({setToken, setUser, token}) => {
+    const { isLoggedIn, setIsLoggedIn, setUserToken } = useContext(UserContext);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const history = useHistory();
+
     return <>
         <h1>Login</h1>
         <form onSubmit={async (event) => {
@@ -18,10 +21,12 @@ const Login = ({setToken, setUser}) => {
                     password
                 }
             });
-            console.log('loginResp: ', loginResp)
+            console.log('mangoLogin: ', loginResp)
             if(loginResp) {
                 // const userResp = await callApi({url: '/users/me', token: loginResp.token});
                 setToken(loginResp.token);
+                setIsLoggedIn(true)
+
                 // console.log(userResp, "userResp")
                 setUser(username);
                 if(loginResp.token) {
