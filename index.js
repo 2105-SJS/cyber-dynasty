@@ -38,7 +38,8 @@ server.listen(PORT, async () => {
     console.error("Database is closed for repairs!\n", error);
   }
 });
-const {testUsers, MangoId} = require ("./dev/test")
+const {testUsers, MangoId, tea} = require ("./dev/test")
 
 // testUsers()
-MangoId()
+// MangoId()
+// tea()
