@@ -7,7 +7,8 @@ const {
 } = require('../db/orders')
 const {
      createUser,
-     getAllUsers
+     getAllUsers,
+     getUserById
 } = require('../db/users')
 
 const {
@@ -73,9 +74,23 @@ const testUsers = async () => {
     }
 }
 
+const MangoId = async () => {
+    
+    try {
+        console.log("travisScott")
+
+        const kylie = await getUserById(2);
+        console.log(kylie, "shoesb")
+      
+    }catch(error){
+        throw error
+    }
+  }
 
 module.exports ={
     testOrders,
-    testUsers
+    testUsers,
+    MangoId
 }
 // testOrders()
+// MangoId()
