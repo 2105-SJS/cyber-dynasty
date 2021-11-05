@@ -3,9 +3,13 @@ import ProductSingle from './ProductSingle';
 
 const ProductsView = ({products}) => {
     return <>
-        {
-            products.map(product => <ProductSingle product={product} key={product.id} />)
-        }
+    <hr></hr>
+        {/* {
+            products.map(product => <ProductSingle product={product} key={product.id} >
+                <hr></hr>
+                <button></button>
+            </ProductSingle>)
+        } */}
     </>
 }
 

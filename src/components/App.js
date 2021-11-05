@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router';
 import { BrowserRouter, Route } from 'react-router-dom';
 
 import {
@@ -9,7 +10,7 @@ import {
 import { 
   Products,
   Login,
-  ProductsView,
+  Product,
   Register, Test
 } from '../components';
 import { callApi } from './util';
@@ -21,8 +22,6 @@ const App = () => {
 
   const [ user, setUser ] = useState('');
   const [ token, setToken ] = useState('');
-
-
 
   const fetchProducts = async() => {
     const response = await callApi({
@@ -42,7 +41,6 @@ const App = () => {
     }
   }, [token])
 
-
   useEffect(() => {
     getSomething()
       .then(response => {
@@ -56,10 +54,10 @@ const App = () => {
 return (
   <div>
     <Route exact path='/products'>
-      <Products products={products} token={token} />
+      <Products products={products} token={token} setProducts={setProducts} />
     </Route>
     <Route exact path='/products/:productId'>
-      <ProductsView products={products} token={token} />
+      <Product products={products} token={token} setProducts={setProducts} />
     </Route>
     <Route exact path='/accounts/login'>
       <Login setUser={setUser} setToken={setToken} />
