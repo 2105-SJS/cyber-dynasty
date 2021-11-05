@@ -7,7 +7,9 @@ const {
 } = require('../db/orders')
 const {
      createUser,
-     getAllUsers
+     getAllUsers,
+     getUserById,
+     getUserByUsername
 } = require('../db/users')
 
 const {
@@ -73,9 +75,50 @@ const testUsers = async () => {
     }
 }
 
+const MangoId = async () => {
+    
+    try {
+        console.log("travisScott")
+
+        const kylie = await getUserById(2);
+        console.log(kylie, "shoesb")
+      
+    }catch(error){
+        throw error
+    }
+  }
+
+  const tea = async () => {
+      
+    
+
+    try{
+        console.log("creating user")
+
+        const user = await createUser({
+            firstName:'backpack',
+            lastName:'backpack',
+            username:'backpop',
+            password:'dankboHy12hj3',
+            email:'backpop@gmail.com'
+        })
+
+        console.log(user)
+        const milk = await getUserByUsername({username:"backpop"})
+        console.log(milk, "gotMilkTea")
+        
+    }catch(error) {
+        throw error
+    }
+   }
 
 module.exports ={
     testOrders,
-    testUsers
+    testUsers,
+    MangoId,
+    tea
 }
 // testOrders()
+// MangoId()
+tea()
+
