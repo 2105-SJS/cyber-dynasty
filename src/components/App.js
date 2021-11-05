@@ -6,12 +6,11 @@ import {
   getSomething
 } from '../api';
 
-
 import { 
   Products,
   Login,
   Product,
-  Register, Test
+  Register
 } from '../components';
 import { callApi } from './util';
 

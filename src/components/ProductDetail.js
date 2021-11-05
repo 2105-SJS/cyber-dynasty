@@ -7,7 +7,7 @@ const ProductDetail = ({ product, children}) => {
             <div>{product.brand}</div>
             <div>Price: {product.retailPrice}</div>
             <div>{product.colorway}</div>
-            <div>{product.thumbnail}</div>
+            <img src={product.thumbnail} />
         </div>
         : 'Loading.......'
     )
