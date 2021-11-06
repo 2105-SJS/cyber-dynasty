@@ -120,10 +120,6 @@ module.exports ={
 }
 // testOrders()
 // MangoId()
-<<<<<<< HEAD
-=======
-// tea()
->>>>>>> 9340dae972476d60ecff41f5dfb7af3b3bdda544
 // tea()
 // testUsers()
 
