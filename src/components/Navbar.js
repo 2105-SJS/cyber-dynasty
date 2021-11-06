@@ -8,7 +8,7 @@ const Navbar =()=>{
     return(
         <>
         <Link to='/home'>Home</Link>
-        <Link to='/profile'>Profile</Link>
+        <Link to='/accounts'>Profile</Link>
         <Link to='/products'>Products</Link>
         <Link t0='/orders'>Cart</Link>
         {isLoggedIn ? <button onClick={() => {
