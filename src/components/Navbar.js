@@ -16,7 +16,9 @@ const Navbar =()=>{
             localStorage.removeItem("token");
             localStorage.removeItem("username");
             setIsLoggedIn(false);
-            setToken('')
+
+            setToken("")
+
             history.push("/");
         }}
         > Logout </button>:  
@@ -26,8 +28,10 @@ const Navbar =()=>{
         </>
         }
         </>
+    
     )
 }
+console.log()
 
 export default Navbar;
 

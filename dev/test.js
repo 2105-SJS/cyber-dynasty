@@ -69,7 +69,7 @@ const testUsers = async () => {
         console.log('mango')
         
         const thePeople = await getAllUsers();
-        console.log(thePeople, "gangang")
+        console.log(thePeople, "WORKWORKWORK")
     }catch(error){
         throw error
     }
@@ -121,4 +121,7 @@ module.exports ={
 // testOrders()
 // MangoId()
 // tea()
+// tea()
+// testUsers()
+
 
