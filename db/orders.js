@@ -21,7 +21,7 @@ try{
 const getAllOrders = async  () =>{
     try {
         const {rows:orders}= await client.query(`SELECT * FROM orders`)
-        orders.forEach(order => {
+        orders.forEach( async (order) => {
             const { rows: products} = await client.query(`
             SELECT * FROM products
             JOIN order_products ON products.id=order_products."productId"
@@ -61,7 +61,7 @@ const getOrderByProduct = async ({id}) => {
             JOIN order_products ON orders.id=order_products."orderId"
             WHERE order_products."productId"=$1
         `, [id]);
-        orders.forEach(order => {
+        orders.forEach( async (order) => {
             const { rows: products} = await client.query(`
             SELECT * FROM products
             JOIN order_products ON products.id=order_products."productId"
