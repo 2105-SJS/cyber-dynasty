@@ -3,12 +3,11 @@ const {
   client
 } = require('./client');
 const { dropTables, createTables } = require('./seed')
-const { createProduct,
-  getAllProducts,
-  getProductById } = require('./products');
+const { createProduct, getAllProducts, getProductById } = require('./products');
 const { newProducts } = require('../sneakerapi/SneakerData')
 
 const { all } = require('../routes');
+const { createOrder } = require('.');
 
 async function buildTables() {
   try {
@@ -30,6 +29,7 @@ async function populateInitialData() {
     console.log("we made it")
     await newProducts();
     const allProducts = await getAllProducts();
+    const newOrder = await createOrder({status: "created", userId: "1"})
     const byId = await getProductById(1);
   } catch (error) {
     throw error;
