@@ -10,7 +10,7 @@ const Navbar =()=>{
         <Link to='/home'>Home</Link>
         <Link to='/accounts'>Profile</Link>
         <Link to='/products'>Products</Link>
-        <Link t0='/orders'>Cart</Link>
+        <Link to='/orders'>Cart</Link>
         {isLoggedIn ? <button onClick={() => {
             console.log("Clicked")
             localStorage.removeItem("token");
