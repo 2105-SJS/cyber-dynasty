@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { callApi } from './util';
 import { UserContext } from "../context/userContext";
+import {Typography, Button} from '@material-ui/core'
 
 const Login = ({ setUser, token}) => {
     const { isLoggedIn, setIsLoggedIn, setToken } = useContext(UserContext);
@@ -10,7 +11,7 @@ const Login = ({ setUser, token}) => {
     const history = useHistory();
 
     return <>
-        <h1>Login</h1>
+        <Typography variant='h3'>Login</Typography>
         <form onSubmit={async (event) => {
             event.preventDefault();
             const loginResp = await callApi({
@@ -36,7 +37,7 @@ const Login = ({ setUser, token}) => {
         }}>
             <input type="text" placeholder="Enter Username" minLength={8} value={username} onChange={(event) => setUsername(event.target.value)}></input>
             <input type="password" placeholder="Enter Password" minLength={8} value={password} onChange={(event) => setPassword(event.target.value)}></input>
-            <button type="submit">Submit</button>
+            <Button type="submit">Submit</Button>
         </form>
     </>
 }

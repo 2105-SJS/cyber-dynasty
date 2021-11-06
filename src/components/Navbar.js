@@ -1,6 +1,7 @@
 import React, {useContext} from "react";
 import { Link, useHistory } from "react-router-dom";
 import { UserContext } from "../context/userContext";
+import {AppBar} from '@material-ui/core'
 const Navbar =()=>{
     const {isLoggedIn, setIsLoggedIn, setToken} = useContext(UserContext)
     const history = useHistory();
