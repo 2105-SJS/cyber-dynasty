@@ -19,7 +19,9 @@ import { callApi } from './util';
 const App = () => {
   const [message, setMessage] = useState('');
   const [products, setProducts] = useState([]);
-
+  const [orders, setOrders] = useState([]);
+  const params = useParams();
+  console.log('orderssssssssss', orders)
   const [ user, setUser ] = useState('');
   const [ token, setToken ] = useState('');
 
@@ -33,6 +35,14 @@ const App = () => {
     if(allProducts) setProducts(allProducts);
   }
 
+  const fetchOrders = async (orderId) => {
+    const resp = await callApi({
+      url: `/orders/${params.orderId}`,
+      token
+    });
+    if(resp) setOrders();
+  }
+
   useEffect(() => {
     try {
       fetchProducts();
@@ -40,6 +50,14 @@ const App = () => {
       console.error(error)
     }
   }, [token])
+
+  useEffect(() => {
+    try {
+        fetchOrders();
+    } catch (error) {
+        console.error(error);
+    }
+}, [token, params.orderId])
 
   useEffect(() => {
     getSomething()
@@ -57,7 +75,7 @@ return (
       <Products products={products} token={token} setProducts={setProducts} />
     </Route>
     <Route exact path='/orders'>
-      <Orders token={token} />
+      <Orders orders={orders} token={token} />
     </Route>
     <Route exact path='/products/:productId'>
       <Product products={products} token={token} setProducts={setProducts} />
