@@ -66,7 +66,36 @@ const addProductToOrder = async ({ orderId, productId, price, quantity }) => {
     }
 }
 
+const updateOrderProduct = async ({ id, price, quantity }) => {
+    try {
+        const updatedOrderProduct = await client.query(`
+            UPDATE order_products
+            SET (price = $1, quantity = $2)
+            WHERE id = $3
+            RETURNING *;
+        `, [price, quantity, id]);
+        return updatedOrderProduct;
+    } catch (error) {
+        throw error;
+    }
+}
+
+const destroyOrderProduct = async (id) => {
+    try {
+        const deletedOrderProduct = await client.query(`
+            DELETE order_products
+            WHERE id = $1
+            RETURNING *;
+        `, [id]);
+        return deletedOrderProduct;
+    } catch (error) {
+        throw error;
+    }
+}
+
 module.exports = {
     getOrderProductById,
-    addProductToOrder
+    addProductToOrder,
+    updateOrderProduct,
+    destroyOrderProduct
 }
