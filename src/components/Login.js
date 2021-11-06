@@ -3,8 +3,8 @@ import { useHistory } from 'react-router-dom';
 import { callApi } from './util';
 import { UserContext } from "../context/userContext";
 
-const Login = ({setToken, setUser, token}) => {
-    const { isLoggedIn, setIsLoggedIn, setUserToken } = useContext(UserContext);
+const Login = ({ setUser, token}) => {
+    const { isLoggedIn, setIsLoggedIn, setToken } = useContext(UserContext);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const history = useHistory();

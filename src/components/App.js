@@ -11,7 +11,8 @@ import {
   Login,
   Product,
   Register,
-  Orders
+  Orders,
+  Profile
 } from '../components';
 import { callApi } from './util';
 
@@ -59,6 +60,9 @@ return (
     </Route>
     <Route exact path='/orders'>
       <Orders orders={orders} token={token} setOrders={setOrders} />
+    </Route>
+    <Route exact path='/accounts'>
+      <Profile user={user} token={token} setUser={setUser} />
     </Route>
     <Route exact path='/products/:productId'>
       <Product products={products} token={token} setProducts={setProducts} />
