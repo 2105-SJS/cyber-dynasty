@@ -27,7 +27,6 @@ async function buildTables() {
 
 async function populateInitialData() {
   try {
-    const product1 = await createProduct({inventory: 5, brand: 'Nike', colorway: 'blue', shoeName: 'Air', retailPrice: 50, inStock: true, releaseDate: '2004-03-04', thumbnail: "image", resellPrice: 30});
     console.log("we made it")
     await newProducts();
     const allProducts = await getAllProducts();
