@@ -26,15 +26,7 @@ const Product = ({products, token}) => {
         }
     }, [token, params.productId])
 
-    // console.log('products in products.js ', products)
-    // const handleDetails = async (productId) => {
-    //     const detailResp = await callApi({
-    //         method: "GET",
-    //         url: `/products/${productId}`
-    //     });
-    //     console.log('details button: ', detailResp)
-    //     await setProductDetails(detailResp);
-    // }
+    
     return <>
         <h1>Product</h1>
         {
