@@ -1,18 +1,20 @@
 import React, {useState} from 'react';
+import {Card, Typography} from '@material-ui/core'
+import Image from 'material-ui-image'
 
 const ProductSingle = ({ product, children }) => {
     return (product ? 
-        <div>
+        <Card>
             <hr></hr>
-            <div><b>Brand: </b>{product.brand}</div>
-            <div><b>Shoe Name: </b>{product.shoeName}</div>
-            <div><b>Retail Price: </b>{product.retailPrice}</div>
-            <div><b>inStock? </b>{product.inStock ? 'true' : 'false'}</div>
-            <img src={product.thumbnail} />
+            <Typography><b>Brand: </b>{product.brand}</Typography>
+            <Typography><b>Shoe Name: </b>{product.shoeName}</Typography>
+            <Typography><b>Retail Price: </b>{product.retailPrice}</Typography>
+            <Typography><b>inStock? </b>{product.inStock ? 'true' : 'false'}</Typography>
+            <Image src={product.thumbnail} />
             {
                 children
             }
-        </div>
+        </Card>
         : 'Loading......')
 }
 

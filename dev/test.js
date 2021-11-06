@@ -10,8 +10,8 @@ const test = async ()=>{//all orders work
         //right your test here
         // const user = await createUser({firstName: "something", lastName: "something", email: "something@email.com", username: "something12", password: "password12"})
         // const order = await createOrder({status: "created", userId: 1})
-        const testing = await addProductToOrder({orderId: 1, productId: 1, price: 50, quantity: 1})
-        console.log("new", testing);
+        // const testing = await addProductToOrder({orderId: 1, productId: 1, price: 50, quantity: 1})
+        // console.log("new", testing);
 
 
 

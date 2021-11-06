@@ -1,13 +1,15 @@
 import React from "react";
+import {Card, Typography} from '@material-ui/core'
+import Image from 'material-ui-image'
 
 const ProductDetail = ({ product, children}) => {
     return ( product ?
         <div>
-            <div>{product.shoeName}</div>
-            <div>{product.brand}</div>
-            <div>Price: {product.retailPrice}</div>
-            <div>{product.colorway}</div>
-            <img src={product.thumbnail} />
+            <Typography>{product.shoeName}</Typography>
+            <Typography>{product.brand}</Typography>
+            <Typography>Price: {product.retailPrice}</Typography>
+            <Typography>{product.colorway}</Typography>
+            <Image src={product.thumbnail} />
         </div>
         : 'Loading.......'
     )
