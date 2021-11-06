@@ -10,12 +10,15 @@ const Navbar =()=>{
         <Link to='/home'>Home</Link>
         <Link to='/profile'>Profile</Link>
         <Link to='/products'>Products</Link>
+        <Link t0='/orders'>Cart</Link>
         {isLoggedIn ? <button onClick={() => {
             console.log("Clicked")
             localStorage.removeItem("token");
             localStorage.removeItem("username");
             setIsLoggedIn(false);
+
             setToken("")
+
             history.push("/");
         }}
         > Logout </button>:  

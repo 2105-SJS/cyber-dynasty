@@ -50,7 +50,7 @@ const createOrder = async ({status, userId}) =>{
     try{
         if(!status){status='created'}
         if(!userId)throw Error('missing userId')
-        const  {rows:[order]} = await  client.query(`
+        const  {rows: [order]} = await  client.query(`
         INSERT INTO orders(status, "userId")
         VALUES($1, $2)
         RETURNING *

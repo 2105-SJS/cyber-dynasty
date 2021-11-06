@@ -6,7 +6,6 @@ const createProduct = async ({inventory, brand, colorway, shoeName,  releaseDate
     if (!brand || !colorway || !shoeName || !retailPrice || !inventory || !releaseDate || !inStock || !thumbnail ){
       throw Error('Missing Required Parameters')
     }
-
     const {rows: [product] } = await client.query(`
     INSERT INTO products(inventory, brand, colorway, "shoeName",  "releaseDate", "retailPrice", "inStock", thumbnail, "resellPrice")
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
