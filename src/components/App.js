@@ -19,7 +19,6 @@ import { callApi } from './util';
 const App = () => {
   const [message, setMessage] = useState('');
   const [products, setProducts] = useState([]);
-  const [orders, setOrders] = useState([]);
 
   const [ user, setUser ] = useState('');
   const [ token, setToken ] = useState('');
@@ -58,7 +57,7 @@ return (
       <Products products={products} token={token} setProducts={setProducts} />
     </Route>
     <Route exact path='/orders'>
-      <Orders orders={orders} token={token} setOrders={setOrders} />
+      <Orders token={token} />
     </Route>
     <Route exact path='/products/:productId'>
       <Product products={products} token={token} setProducts={setProducts} />
