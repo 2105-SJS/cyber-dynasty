@@ -29,7 +29,7 @@ const Register = ({ setUser, token, setToken }) => {
           password
       } });
       console.log(user, "it worked");
-      if (user) {
+      if (user && user.username) {
         localStorage.setItem("token", token);
         setToken(user.token);
         setUser(user.username);
@@ -80,7 +80,7 @@ const Register = ({ setUser, token, setToken }) => {
           onChange={(event) => setPassword(event.target.value)}
         ></input>
         <hr></hr>
-        <button type="submit">Submit</button>
+        <button type="submit" disabled={password.length < 8}> Submit</button>
       </form>
       
     </>
