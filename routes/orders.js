@@ -34,7 +34,6 @@ ordersRouter.get('/cart', requireUser, async (req, res, next) => {
 
 // POST /orders
 ordersRouter.post('/', requireUser, async (req, res, next) => {
-    console.log('>>>>>>>>>>>>>>', req.body)
     const { status, userId } = req.body;
     try {
         const newOrder = await createOrder({status, userId});
