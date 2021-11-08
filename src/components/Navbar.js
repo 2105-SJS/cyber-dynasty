@@ -47,7 +47,7 @@ const Navbar =()=>{
         <Link to='/accounts'className={classes.links}>Profile</Link>
         <Link to='/products'className={classes.links}>Products</Link>
         <Link to='/orders'className={classes.links}>Cart</Link>
-        {!isLoggedIn ? <button className={classes.logout} onClick={() => {
+        {isLoggedIn ? <button className={classes.logout} onClick={() => {
             console.log("Clicked")
             localStorage.removeItem("token");
             localStorage.removeItem("username");
