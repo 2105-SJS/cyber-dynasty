@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { callApi } from './util';
 import { UserContext } from "../context/userContext";
-import {Typography, Button} from '@material-ui/core'
+import {Typography, Button, TextField} from '@material-ui/core'
 
 const Login = ({ setUser, token}) => {
     const { isLoggedIn, setIsLoggedIn, setToken } = useContext(UserContext);
@@ -26,6 +26,7 @@ const Login = ({ setUser, token}) => {
                             password
                         }
                     });
+                    console.log({username, password})
                     console.log('mangoLogin: ', loginResp)
                     if(loginResp) {
                         setToken(loginResp.token);
@@ -37,8 +38,8 @@ const Login = ({ setUser, token}) => {
                         }
                     }
                 }}>
-                    <input type="text" placeholder="Enter Username" minLength={8} value={username} onChange={(event) => setUsername(event.target.value)}></input>
-                    <input type="password" placeholder="Enter Password" minLength={8} value={password} onChange={(event) => setPassword(event.target.value)}></input>
+                    <TextField type="text" placeholder="Enter Username" minLength={8} value={username} onChange={(event) => setUsername(event.target.value)}></TextField>
+                    <TextField type="password" placeholder="Enter Password" minLength={8} value={password} onChange={(event) => setPassword(event.target.value)}></TextField>
                     <Button type="submit">Submit</Button>
                 </form>
 
