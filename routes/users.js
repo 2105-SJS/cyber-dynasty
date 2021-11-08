@@ -92,6 +92,7 @@ usersRouter.post('/register', async (req, res, next) => {
                 username,
                 password
             });
+            const token = jwt.sign({id: user.id, username}, JWT_SECRET);
             if(!user){
                 next({
                     name:'CreateUserError',
@@ -100,7 +101,8 @@ usersRouter.post('/register', async (req, res, next) => {
             }
             res.send({ 
                 message: "thank you for signing up",
-                user
+                user,
+                token
             });
         }
     } catch({ name, message}) {
