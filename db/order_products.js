@@ -31,8 +31,8 @@ const addProductToOrder = async ({ orderId, productId, price, quantity }) => {
             SELECT * FROM order_products
             WHERE "orderId"=$1
         `, [orderId]);
-        const isInOrder = false;
-        const foundOrderProduct = orderProducts[0];
+        let isInOrder = false;
+        let foundOrderProduct = orderProducts[0];
         orderProducts.forEach(orderProduct =>{
             if(orderProduct.productId === productId) {
                 foundOrderProduct = orderProduct;
@@ -45,20 +45,22 @@ const addProductToOrder = async ({ orderId, productId, price, quantity }) => {
         }
         let addProduct = {}
         if (foundOrderProduct.price != price) {
-            addProduct = await client.query(`
+            const {rows} = await client.query(`
                 UPDATE order_products
-                SET (price = $1)
+                SET price=$1
                 WHERE id = $2
                 RETURNING *;
             `, [price, foundOrderProduct.id]);
+            addProduct = rows
         }
         if (foundOrderProduct.quantity != quantity) {
-            addProduct = await client.query(`
+            const { rows } = await client.query(`
                 UPDATE order_products
-                SET (quantity = $1)
+                SET quantity=$1
                 WHERE id=$2
                 RETURNING *;
             `, [quantity, foundOrderProduct.id]);
+            addProduct = rows;
         }
         return addProduct;
     } catch (error) {
@@ -68,9 +70,9 @@ const addProductToOrder = async ({ orderId, productId, price, quantity }) => {
 
 const updateOrderProduct = async ({ id, price, quantity }) => {
     try {
-        const updatedOrderProduct = await client.query(`
+        const {rows: updatedOrderProduct } = await client.query(`
             UPDATE order_products
-            SET (price = $1, quantity = $2)
+            SET price = $1, quantity = $2
             WHERE id = $3
             RETURNING *;
         `, [price, quantity, id]);
