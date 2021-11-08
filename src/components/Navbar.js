@@ -46,15 +46,13 @@ const Navbar =()=>{
         <Link to='/home'className={classes.links}>Home</Link>
         <Link to='/accounts'className={classes.links}>Profile</Link>
         <Link to='/products'className={classes.links}>Products</Link>
-        <Link to='/orders'className={classes.links}>Cart</Link>
+        <Link to='/cart'className={classes.links}>Cart</Link>
         {isLoggedIn ? <button className={classes.logout} onClick={() => {
             console.log("Clicked")
             localStorage.removeItem("token");
             localStorage.removeItem("username");
             setIsLoggedIn(false);
-            
-            setToken("")
-            
+            setToken("");
             history.push("/");
         }}
         > Logout </button>:  

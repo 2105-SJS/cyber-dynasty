@@ -13,7 +13,8 @@ import {
   Register,
   Orders,
   Profile,
-  Home
+  Home,
+  Cart
 } from '../components';
 import { callApi } from './util';
 
@@ -73,8 +74,11 @@ const App = () => {
 
 return (
   <div>
-    <Route path='/home'>
+    <Route exact path='/home'>
       <Home user={user} token={token} setUser={setUser} />
+    </Route>
+    <Route exact path='/cart'>
+      <Cart products={products} token={token} setProducts={setProducts} />
     </Route>
     <Route exact path='/products'>
       <Products products={products} token={token} setProducts={setProducts} />
