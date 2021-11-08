@@ -50,6 +50,9 @@ const ordersRouter = require('./orders');
 const { requireUser } = require('./util');
 apiRouter.use('/orders', ordersRouter);
 
+const orderProductRouter = require('./order_products');
+apiRouter.use('/order_products', orderProductRouter);
+
 apiRouter.use((error, req, res, next) => {
   console.error(error)
   res.status(400)

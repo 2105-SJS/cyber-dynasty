@@ -3,6 +3,7 @@ const { getAllProducts } = require('../db');
 const ordersRouter = express.Router();
 
 const { getAllOrders, getCartByUser, createOrder } = require('../db');
+const { addProductToOrder } = require("../db/order_products")
 const { requireUser } = require('./util');
 
 // GET /orders
@@ -43,6 +44,19 @@ ordersRouter.post('/', requireUser, async (req, res, next) => {
             name,
             message
         })
+    }
+});
+
+// POST /orders/:orderId/products
+ordersRouter.post('/:orderId/products', requireUser, async (req, res, next) => {
+    const { productId, price, quantity } = req.body;
+    console.log('>>>>> in order routes', req.body)
+    const { orderId } = req.params;
+    try {
+        const addedProductToOrder = await addProductToOrder({productId, orderId, price, quantity});
+        res.send(addedProductToOrder)
+    } catch ({name, message}) {
+        next({name, message})
     }
 });
 
