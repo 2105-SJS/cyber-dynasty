@@ -12,7 +12,8 @@ import {
   Product,
   Register,
   Orders,
-  Profile
+  Profile,
+  Home
 } from '../components';
 import { callApi } from './util';
 
@@ -21,10 +22,10 @@ const App = () => {
   const [message, setMessage] = useState('');
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
-  const params = useParams();
-  console.log('orderssssssssss', orders)
   const [ user, setUser ] = useState('');
   const [ token, setToken ] = useState('');
+  
+  const params = useParams();
 
   const fetchProducts = async() => {
     const response = await callApi({
@@ -72,6 +73,9 @@ const App = () => {
 
 return (
   <div>
+    <Route path='/home'>
+      <Home user={user} token={token} setUser={setUser} />
+    </Route>
     <Route exact path='/products'>
       <Products products={products} token={token} setProducts={setProducts} />
     </Route>

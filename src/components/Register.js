@@ -18,7 +18,7 @@ const Register = ({ setUser, token, setToken }) => {
   const handleRegister = async (event) => {
     event.preventDefault();
     try {
-      const user = await callApi({ 
+      const userResp = await callApi({ 
       url: '/users/register',
       method: "POST",
       body: {
@@ -28,22 +28,27 @@ const Register = ({ setUser, token, setToken }) => {
           username,
           password
       } });
-      console.log(user, "it worked");
-      if (user && user.username) {
+      console.log(userResp, "it worked");
+      if (userResp && userResp.user.username) {
         localStorage.setItem("token", token);
-        setToken(user.token);
-        setUser(user.username);
-        setIsLoggedIn(true)
-        history.push("/");
+        setToken(userResp.user.token);
+        setUser(userResp.user.username);
+        setIsLoggedIn(true);
+        if (userResp.user.firstName) {
+          alert(`Welcome ${firstName}, Thank you for registering `)
+          history.push('/home');
+        }
       }
     } catch (error) {
       console.error(error);
     }
   };
-
   return (
     <> 
       <h1>Hi there, please register below! </h1>
+      {
+        isLoggedIn ? 
+        history.push('/home') :
       <form onSubmit={handleRegister}>
       <input
           type="text"
@@ -82,7 +87,7 @@ const Register = ({ setUser, token, setToken }) => {
         <hr></hr>
         <button type="submit" disabled={password.length < 8}> Submit</button>
       </form>
-      
+      }
     </>
   );
 };
