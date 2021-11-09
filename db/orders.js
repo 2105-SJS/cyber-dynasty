@@ -107,11 +107,28 @@ const createOrder = async ({status, userId}) =>{
     }
 }
 
+
+const cancelOrder=async (id)=>{
+    try{
+            if(!id)throw Error('missing order id')
+            const {rows:[order]}= await client.query(`
+            UPDATE orders
+            SET status='canceled'
+            WHERE id=$1
+            RETURNING *
+            `,[id])
+            return order;
+        }catch(error){
+            throw error
+        }
+    }
+
 module.exports = {
     getOrderById,
     getAllOrders,
     getCartByUser,
     getOrdersByUser,
     getOrderByProduct,
-    createOrder
+    createOrder,
+    cancelOrder
 }
