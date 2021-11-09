@@ -3,6 +3,7 @@ import { useHistory } from "react-router";
 import { useContext } from "react";
 import { UserContext } from "../context/userContext";
 import { callApi } from "./util";
+import {TextField} from '@material-ui/core'
 
 
 const Register = ({ setUser, token, setToken }) => {
@@ -28,7 +29,7 @@ const Register = ({ setUser, token, setToken }) => {
           username,
           password
       } });
-      console.log(userResp, "it worked");
+      console.log(userResp, "it worked", username, password);
       if (userResp && userResp.user.username) {
         localStorage.setItem("token", token);
         setToken(userResp.user.token);
@@ -50,40 +51,40 @@ const Register = ({ setUser, token, setToken }) => {
         isLoggedIn ? 
         history.push('/home') :
       <form onSubmit={handleRegister}>
-      <input
+      <TextField
           type="text"
           placeholder="firstName"
           value = {firstName}
           onChange={(event) => setFirstName(event.target.value)}
-        ></input>
+        ></TextField>
         <hr></hr>  
-        <input
+        <TextField
           type="text"
           placeholder="lastName"
           value = {lastName}
           onChange={(event) => setLastName(event.target.value)}
-        ></input>
+        ></TextField>
         <hr></hr>  
-        <input
+        <TextField
           type="text"
           placeholder="email"
           value = {email}
           onChange={(event) => setEmail(event.target.value)}
-        ></input>
+        ></TextField>
         <hr></hr>  
-        <input
+        <TextField
           type="text"
           placeholder="username"
           value = {username}
           onChange={(event) => setUsername(event.target.value)}
-        ></input>
+        ></TextField>
         <hr></hr>
-        <input
+        <TextField
           type="password"
           placeholder="password"
           value = {password}
           onChange={(event) => setPassword(event.target.value)}
-        ></input>
+        ></TextField>
         <hr></hr>
         <button type="submit" disabled={password.length < 8}> Submit</button>
       </form>
