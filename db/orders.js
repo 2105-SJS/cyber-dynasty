@@ -113,15 +113,30 @@ const cancelOrder=async (id)=>{
             if(!id)throw Error('missing order id')
             const {rows:[order]}= await client.query(`
             UPDATE orders
-            SET status='canceled'
+            SET status=$2
             WHERE id=$1
             RETURNING *
-            `,[id])
+            `,[id, 'canceled'])
             return order;
         }catch(error){
             throw error
         }
-    }
+    } 
+
+const completeOrder=async (id)=>{
+    try{
+            if(!id)throw Error('missing order id')
+            const {rows:[order]}= await client.query(`
+            UPDATE orders
+            SET status=$2
+            WHERE id=$1
+            RETURNING *
+            `,[id, 'completed'])
+            return order;
+        }catch(error){
+            throw error
+        }
+    } 
 
 module.exports = {
     getOrderById,
@@ -130,5 +145,6 @@ module.exports = {
     getOrdersByUser,
     getOrderByProduct,
     createOrder,
-    cancelOrder
+    cancelOrder,
+    completeOrder
 }
