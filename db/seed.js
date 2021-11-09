@@ -58,6 +58,7 @@ async function createTables() {
               id SERIAL PRIMARY KEY,
               "productId" INTEGER REFERENCES products(id),
               "orderId" INTEGER REFERENCES orders(id),
+              UNIQUE ("productId", "orderId"),
               price NUMERIC NOT NULL,
               quantity INTEGER NOT NULL DEFAULT 0
             )

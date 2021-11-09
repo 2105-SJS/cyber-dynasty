@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router";
-// import { useContext } from "react";
-// import { UserContext } from "../context/UserContext";
+import { useContext } from "react";
+import { UserContext } from "../context/userContext";
 import { callApi } from "./util";
+import {TextField} from '@material-ui/core'
 
 
 const Register = ({ setUser, token, setToken }) => {
-//   const { isLoggedIn, setIsLoggedIn, setUserToken, setUser } =
-    // useContext(UserContext);
+  const { isLoggedIn, setIsLoggedIn, setUserToken } = useContext(UserContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -19,7 +19,7 @@ const Register = ({ setUser, token, setToken }) => {
   const handleRegister = async (event) => {
     event.preventDefault();
     try {
-      const user = await callApi({ 
+      const userResp = await callApi({ 
       url: '/users/register',
       method: "POST",
       body: {
@@ -29,60 +29,66 @@ const Register = ({ setUser, token, setToken }) => {
           username,
           password
       } });
-      console.log(user, "it worked");
-      if (user) {
+      console.log(userResp, "it worked", username, password);
+      if (userResp && userResp.user.username) {
         localStorage.setItem("token", token);
-        setToken(user.token);
-        setUser(user.username);
-        history.push("/");
+        setToken(userResp.user.token);
+        setUser(userResp.user.username);
+        setIsLoggedIn(true);
+        if (userResp.user.firstName) {
+          alert(`Welcome ${firstName}, Thank you for registering `)
+          history.push('/home');
+        }
       }
     } catch (error) {
       console.error(error);
     }
   };
-
   return (
     <> 
       <h1>Hi there, please register below! </h1>
+      {
+        isLoggedIn ? 
+        history.push('/home') :
       <form onSubmit={handleRegister}>
-      <input
+      <TextField
           type="text"
           placeholder="firstName"
           value = {firstName}
           onChange={(event) => setFirstName(event.target.value)}
-        ></input>
+        ></TextField>
         <hr></hr>  
-        <input
+        <TextField
           type="text"
           placeholder="lastName"
           value = {lastName}
           onChange={(event) => setLastName(event.target.value)}
-        ></input>
+        ></TextField>
         <hr></hr>  
-        <input
+        <TextField
           type="text"
           placeholder="email"
           value = {email}
           onChange={(event) => setEmail(event.target.value)}
-        ></input>
+        ></TextField>
         <hr></hr>  
-        <input
+        <TextField
           type="text"
           placeholder="username"
           value = {username}
           onChange={(event) => setUsername(event.target.value)}
-        ></input>
+        ></TextField>
         <hr></hr>
-        <input
+        <TextField
           type="password"
           placeholder="password"
           value = {password}
           onChange={(event) => setPassword(event.target.value)}
-        ></input>
+        ></TextField>
         <hr></hr>
-        <button type="submit">Submit</button>
+        <button type="submit" disabled={password.length < 8}> Submit</button>
       </form>
-      
+      }
     </>
   );
 };

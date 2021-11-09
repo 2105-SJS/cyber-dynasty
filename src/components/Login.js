@@ -1,38 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { callApi } from './util';
+import { UserContext } from "../context/userContext";
+import {Typography, Button, TextField} from '@material-ui/core'
 
-const Login = ({setToken, setUser}) => {
+const Login = ({ setUser, token}) => {
+    const { isLoggedIn, setIsLoggedIn, setToken } = useContext(UserContext);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [loginMessage, setLoginMessage] = useState("");
     const history = useHistory();
+
     return <>
-        <h1>Login</h1>
-        <form onSubmit={async (event) => {
-            event.preventDefault();
-            const loginResp = await callApi({
-                url: '/users/login',
-                method: "POST",
-                body: {
-                    username,
-                    password
-                }
-            });
-            console.log('loginResp: ', loginResp)
-            if(loginResp) {
-                // const userResp = await callApi({url: '/users/me', token: loginResp.token});
-                setToken(loginResp.token);
-                // console.log(userResp, "userResp")
-                setUser(username);
-                if(loginResp.token) {
-                    history.push('/');
-                }
-            }
-        }}>
-            <input type="text" placeholder="Enter Username" minLength={8} value={username} onChange={(event) => setUsername(event.target.value)}></input>
-            <input type="password" placeholder="Enter Password" minLength={8} value={password} onChange={(event) => setPassword(event.target.value)}></input>
-            <button type="submit">Submit</button>
-        </form>
+        <Typography variant='h3'>Login</Typography>
+        {
+            isLoggedIn ? 
+            history.push('/home') :
+                <form onSubmit={async (event) => {
+                    event.preventDefault();
+                    const loginResp = await callApi({
+                        url: '/users/login',
+                        method: "POST",
+                        body: {
+                            username,
+                            password
+                        }
+                    });
+                    console.log({username, password})
+                    console.log('mangoLogin: ', loginResp)
+                    if(loginResp) {
+                        setToken(loginResp.token);
+                        setIsLoggedIn(true)
+                        setUser(username);
+                        if(loginResp.token) {
+                            alert(`Hello, you are logged in as ${username} `)
+                            history.push('/home');
+                        }
+                    }
+                }}>
+                    <TextField type="text" placeholder="Enter Username" minLength={8} value={username} onChange={(event) => setUsername(event.target.value)}></TextField>
+                    <TextField type="password" placeholder="Enter Password" minLength={8} value={password} onChange={(event) => setPassword(event.target.value)}></TextField>
+                    <Button type="submit">Submit</Button>
+                </form>
+
+        }
     </>
 }
 

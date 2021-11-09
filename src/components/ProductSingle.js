@@ -1,16 +1,19 @@
 import React, {useState} from 'react';
+import {Card, Typography} from '@material-ui/core'
+import Image from 'material-ui-image'
+import { Link } from 'react-router-dom'
 
-const ProductSingle = ({ product }) => {
+const ProductSingle = ({ product, children }) => {
     return (product ? 
-        <div>
+        <Card>
             <hr></hr>
-            <div><b>Brand: </b>{product.brand}</div>
-            <div><b>Inventory: </b>{product.inventory}</div>
-            <div><b>ColorWay: </b>{product.colorway}</div>
-            <div><b>Shoe Name: </b>{product.shoeName}</div>
-            <div><b>Retail Price: </b>{product.retailPrice}</div>
-            <div><b>inStock? </b>{product.inStock ? 'true' : 'false'}</div>
-        </div>
+            <Typography><b>Brand: </b>{product.brand}</Typography>
+            <Typography><b>Shoe Name: </b>{product.shoeName}</Typography>
+            <Typography><b>Retail Price: </b>{product.retailPrice}</Typography>
+            <Typography><b>inStock? </b>{product.inStock ? 'true' : 'false'}</Typography>
+            <Image src={product.thumbnail} />
+            <Link to={`/products/${product.id}`}  >Details</Link>
+        </Card>
         : 'Loading......')
 }
 

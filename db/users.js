@@ -40,12 +40,14 @@ const getUser = async ({ username, password }) => {
 
 const getAllUsers = async () => {
     try {
-        const users = await client.query(`
-            SELECT *
-            FROM users
-            RETURNING *;
-        `);
-        delete users.password;
+        const { rows: users } = await client.query(`
+        SELECT *
+        FROM users`);
+
+    users.map((user)=>
+    {
+      delete user.password;
+    });
         return users;
     } catch (error) {
         throw error;
@@ -59,6 +61,7 @@ const getUserById = async (id) => {
             FROM users
             WHERE id=$1
         `, [id]);
+        delete user.password;
         return user;
     } catch (error) {
         throw error;

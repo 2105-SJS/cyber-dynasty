@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router';
 import { BrowserRouter, Route } from 'react-router-dom';
 
 import {
   getSomething
 } from '../api';
 
-
 import { 
   Products,
   Login,
-  ProductsView,
-  Register, Test
+  Product,
+  Register,
+  Orders,
+  Profile,
+  Home,
+  Cart
 } from '../components';
 import { callApi } from './util';
 
@@ -18,11 +22,11 @@ import { callApi } from './util';
 const App = () => {
   const [message, setMessage] = useState('');
   const [products, setProducts] = useState([]);
-
+  const [orders, setOrders] = useState([]);
   const [ user, setUser ] = useState('');
   const [ token, setToken ] = useState('');
-
-
+  
+  const params = useParams();
 
   const fetchProducts = async() => {
     const response = await callApi({
@@ -34,6 +38,14 @@ const App = () => {
     if(allProducts) setProducts(allProducts);
   }
 
+  const fetchOrders = async (orderId) => {
+    const resp = await callApi({
+      url: `/orders/${params.orderId}`,
+      token
+    });
+    if(resp) setOrders();
+  }
+
   useEffect(() => {
     try {
       fetchProducts();
@@ -42,6 +54,13 @@ const App = () => {
     }
   }, [token])
 
+  useEffect(() => {
+    try {
+        fetchOrders();
+    } catch (error) {
+        console.error(error);
+    }
+}, [token, params.orderId])
 
   useEffect(() => {
     getSomething()
@@ -55,11 +74,23 @@ const App = () => {
 
 return (
   <div>
+    <Route exact path='/home'>
+      <Home user={user} token={token} setUser={setUser} />
+    </Route>
+    <Route exact path='/cart'>
+      <Cart products={products} token={token} setProducts={setProducts} />
+    </Route>
     <Route exact path='/products'>
-      <Products products={products} token={token} />
+      <Products products={products} token={token} setProducts={setProducts} />
+    </Route>
+    <Route exact path='/orders'>
+      <Orders orders={orders} token={token} />
+    </Route>
+    <Route exact path='/accounts'>
+      <Profile user={user} token={token} setUser={setUser} />
     </Route>
     <Route exact path='/products/:productId'>
-      <Products products={products} token={token} />
+      <Product products={products} token={token} setProducts={setProducts} />
     </Route>
     <Route exact path='/accounts/login'>
       <Login setUser={setUser} setToken={setToken} />

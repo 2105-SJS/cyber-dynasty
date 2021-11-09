@@ -1,6 +1,11 @@
 
 const apiRouter = require('express').Router();
 const productsRouter = require('./products');
+// const JWT_SECRET = process.env.JWT_SECRET;
+const { JWT_SECRET = "DonNotWell" } = process.env;
+const jwt = require('jsonwebtoken');
+
+const { getUserById } = require('../db/users')
 
 
 apiRouter.use(async (req, res, next) => {
@@ -42,7 +47,11 @@ const usersRouter = require('./users');
 apiRouter.use('/users', usersRouter);
 
 const ordersRouter = require('./orders');
+const { requireUser } = require('./util');
 apiRouter.use('/orders', ordersRouter);
+
+const orderProductRouter = require('./order_products');
+apiRouter.use('/order_products', orderProductRouter);
 
 apiRouter.use((error, req, res, next) => {
   console.error(error)

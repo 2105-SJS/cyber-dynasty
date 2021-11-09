@@ -1,68 +1,34 @@
-const {
-    getOrderById,
-    getAllOrders,
-    getOrdersByUser,
-    getCartByUser,
-    createOrder
-} = require('../db/orders')
-const {
-     createUser
-} = require('../db/users')
 
-const {
-    getAllProducts
-} = require('../db/products')
+//import your stuff here
+const { addProductToOrder } = require("../db/order_products")
+const { createOrder, createProduct } = require("../db") 
+const { createUser } = require("../db/users")
+const { cancelOrder, completeOrder, getAllOrders } = require("../db/orders")
 
-
-
-const testOrders = async ()=>{//all orders work
-
+const test = async ()=>{//all orders work
+    console.log('Starting Tests')
     try{
-        console.log('xxxxxxxxx')
-
-        const prod = await getAllProducts()
-        console.log('prod',prod )
-        // const user = await createUser({
-        //     firstName:'xfdsfdsf',
-        //     lastName:'mdfsdfdsfd',
-        //     username:'omgOmgojmg',
-        //     password:'dankboHy12hj3',
-        //     email:'x.looera.d@gma.com'
-        // })
-        console.log('starting')
+        //right your test here
+        // const user = await createUser({firstName: "something", lastName: "something", email: "something@email.com", username: "something12", password: "password12"})
+        // const testing = await addProductToOrder({orderId: 1, productId: 1, price: 50, quantity: 1})
+        // console.log("new", testing);
         
-        // const createdOrder2 = await createOrder({
-        //     status:'created', userId:1})
-        const order1 = await getOrderById(1)
-        console.log('getordebyid',order1 )//check
+        // const order = await createOrder({status: "created", userId: 1})
+        // const orders = await getAllOrders()
+        // console.log(orders)
+        // const canceledOrder = await cancelOrder(4)
+        // const completedOrder = await completeOrder(4)
+        // console.log({ canceledOrder, completedOrder})
+
+
         
-        const orders = await getAllOrders()
-        console.log('getAllOrders',orders )//check
-        
-        const userOrders = await getOrdersByUser({id:1})
-        
-        console.log('getOrdersByUser',userOrders )//cehck
-
-        console.log('mmmmmmmmmm')
-        const userCart = await getCartByUser({id:1})
-        console.log('getCartByUser',userOrders )
-        
-        const createdOrder = await createOrder('created', 1)
-
-
-
-
-
-        console.log('done')
-    }catch(error){
-        throw error
-    }
-
-
+   }catch(error){
+       throw(error)
+   }finally{
+       console.log('tests are done')
+   }
 }
-
 
 module.exports ={
-    testOrders
+    test
 }
-// testOrders()
