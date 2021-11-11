@@ -25,7 +25,8 @@ import { callApi } from './util';
 const useStyles = makeStyles({
   page:{
     backgroundColor:'#7289DA',
-    minHeight:'100vh'
+    minHeight:'100vh',
+    paddingTop:'2rem'
   }
 })
 

@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { callApi } from './util';
 import { UserContext } from "../context/userContext";
-import {Typography, Button, TextField} from '@material-ui/core'
+import {Typography, Button, TextField, Paper} from '@material-ui/core'
 
 const Login = ({ setUser }) => {
     const { isLoggedIn, setIsLoggedIn, setToken } = useContext(UserContext);
@@ -10,7 +10,7 @@ const Login = ({ setUser }) => {
     const [password, setPassword] = useState('');
     const history = useHistory();
 
-    return <>
+    return <Paper elevation={3}>
         <Typography variant='h3'>Login</Typography>
         {
             isLoggedIn ? 
@@ -40,7 +40,7 @@ const Login = ({ setUser }) => {
                 </form>
 
         }
-    </>
+    </Paper>
 }
 
 export default Login;
