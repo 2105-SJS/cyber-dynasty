@@ -27,7 +27,6 @@ const Product = ({products, addProductToCart}) => {
     }, [token, params.productId]);
     const orderId = 1;
     return <>
-        <h1>Product</h1>
         {
             <ProductDetail product={productDetails}>
                 <Link to='/products' >Back</Link>

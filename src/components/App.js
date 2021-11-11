@@ -99,8 +99,8 @@ const App = () => {
     try {
 
         if(localStorage.getItem("token") != '' ) {
-            setToken(localStorage.getItem("token"))
-            isLoggedIn(true)
+            // setToken(localStorage.getItem("token"))
+            // isLoggedIn(true)
         }
     } catch (error) {
         console.error(error)
