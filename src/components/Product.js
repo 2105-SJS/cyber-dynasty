@@ -1,14 +1,16 @@
 import { Link } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router';
 import { ProductDetail } from '.';
 import { callApi } from './util';
+import { UserContext } from '../context/userContext';
 
 const Product = ({products, addProductToCart}) => {
     const [ productDetails, setProductDetails ] = useState([]);
     const params = useParams();
     console.log('product ID ', params.productId)
     console.log('details: ', productDetails)
+    const { token } = useContext(UserContext);
 
     const fetchSingleProduct = async () => {
         const resp = await callApi({
