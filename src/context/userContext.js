@@ -41,7 +41,7 @@ export const UserProvider = ({children})=>{
         try {
             if(localStorage.getItem('token') != '') {
                 setToken(localStorage.getItem('token'))
-                isLoggedIn(true)
+                setIsLoggedIn(true)
             }
         } catch (error) {
             console.error(error)
