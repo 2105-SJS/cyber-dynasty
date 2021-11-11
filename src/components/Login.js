@@ -25,10 +25,9 @@ const Login = ({ setUser }) => {
                             password
                         }
                     });
-                    console.log({username, password})
-                    console.log('mangoLogin: ', loginResp)
                     if(loginResp && loginResp.token) {
                         setToken(loginResp.token);
+                        localStorage.setItem("token", loginResp.token);
                         setIsLoggedIn(true);
                         setUser(username);
                         alert(`Hello, you are logged in as ${username} `);

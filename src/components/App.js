@@ -27,7 +27,7 @@ const App = () => {
   const [user, setUser] = useState('');
   const [cartItems, setCartItems] = useState([]);
 
-  const { token } = useContext(UserContext);
+  const { token, setToken, isLoggedIn } = useContext(UserContext);
   const params = useParams();
 
   const addProductToCart = async ({productId, orderId, price, quantity}) => {
@@ -46,7 +46,7 @@ const App = () => {
     const response = await callApi({
       url: '/products'
     });
-    console.log('all the products: ', response)
+
     const allProducts = response;
     if(allProducts) setProducts(allProducts);
   }
@@ -65,7 +65,7 @@ const App = () => {
     } catch (error) {
       console.error(error)
     }
-  }, [token])
+  }, [])
 
   useEffect(() => {
     try {
@@ -84,6 +84,17 @@ const App = () => {
         setMessage(error.message);
       });
   });
+  useEffect(() => {
+    try {
+
+        if(localStorage.getItem("token") != '' ) {
+            setToken(localStorage.getItem("token"))
+            isLoggedIn(true)
+        }
+    } catch (error) {
+        console.error(error)
+    }
+}, [])  
 
 return (
   <div>
