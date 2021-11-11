@@ -50,7 +50,6 @@ ordersRouter.post('/', requireUser, async (req, res, next) => {
 // POST /orders/:orderId/products
 ordersRouter.post('/:orderId/products', requireUser, async (req, res, next) => {
     const { productId, price, quantity } = req.body;
-    console.log('>>>>> in order routes', req.body)
     const { orderId } = req.params;
     try {
         const addedProductToOrder = await addProductToOrder({productId, orderId, price, quantity});

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 import { BrowserRouter, Route } from 'react-router-dom';
+import { useContext } from 'react';
+import { UserContext } from '../context/userContext';
 
 import {
   getSomething
@@ -18,20 +20,31 @@ import {
 } from '../components';
 import { callApi } from './util';
 
-
 const App = () => {
   const [message, setMessage] = useState('');
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
-  const [ user, setUser ] = useState('');
-  const [ token, setToken ] = useState('');
-  
+  const [user, setUser] = useState('');
+  const [cartItems, setCartItems] = useState([]);
+
+  const { token } = useContext(UserContext);
   const params = useParams();
+
+  const addProductToCart = async ({productId, orderId, price, quantity}) => {
+    const order = await callApi({
+      method: "POST",
+      url: `/orders/${orderId}/products`,
+      body: {
+        productId,
+        price,
+        quantity
+      }
+    })
+  }
 
   const fetchProducts = async() => {
     const response = await callApi({
-      url: '/products',
-      token
+      url: '/products'
     });
     console.log('all the products: ', response)
     const allProducts = response;
@@ -75,28 +88,28 @@ const App = () => {
 return (
   <div>
     <Route exact path='/home'>
-      <Home user={user} token={token} setUser={setUser} />
+      <Home user={user} setUser={setUser} />
     </Route>
     <Route exact path='/cart'>
-      <Cart products={products} token={token} setProducts={setProducts} />
+      <Cart products={products} setProducts={setProducts} cartItems={cartItems} addProductToCart={addProductToCart} />
     </Route>
     <Route exact path='/products'>
-      <Products products={products} token={token} setProducts={setProducts} />
+      <Products products={products} setProducts={setProducts} />
     </Route>
     <Route exact path='/orders'>
-      <Orders orders={orders} token={token} />
+      <Orders orders={orders} />
     </Route>
     <Route exact path='/accounts'>
-      <Profile user={user} token={token} setUser={setUser} />
+      <Profile user={user} setUser={setUser} />
     </Route>
     <Route exact path='/products/:productId'>
-      <Product products={products} token={token} setProducts={setProducts} />
+      <Product products={products} setProducts={setProducts} addProductToCart={addProductToCart} />
     </Route>
     <Route exact path='/accounts/login'>
-      <Login setUser={setUser} setToken={setToken} />
+      <Login setUser={setUser} />
     </Route>
     <Route exact path='/accounts/register'>
-      <Register setUser = {setUser} token = {token} setToken = {setToken}/>
+      <Register setUser = {setUser} />
     </Route>
   </div>
 )
