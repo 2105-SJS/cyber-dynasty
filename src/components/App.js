@@ -3,6 +3,7 @@ import { useParams } from 'react-router';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { useContext } from 'react';
 import { UserContext } from '../context/userContext';
+import {Container, makeStyles} from '@material-ui/core'
 
 import {
   getSomething
@@ -20,7 +21,17 @@ import {
 } from '../components';
 import { callApi } from './util';
 
+
+const useStyles = makeStyles({
+  page:{
+    backgroundColor:'#7289DA',
+    minHeight:'100vh',
+    paddingTop:'2rem'
+  }
+})
+
 const App = () => {
+  const classes = useStyles()
   const [message, setMessage] = useState('');
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
@@ -97,7 +108,8 @@ const App = () => {
 }, [])  
 
 return (
-  <div>
+  <div className={classes.page}>
+  <Container maxWidth='lg'>
     <Route exact path='/home'>
       <Home user={user} setUser={setUser} />
     </Route>
@@ -122,6 +134,7 @@ return (
     <Route exact path='/accounts/register'>
       <Register setUser = {setUser} />
     </Route>
+  </Container>
   </div>
 )
 }

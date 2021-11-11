@@ -11,31 +11,31 @@ export const UserProvider = ({children})=>{
     const [cartItems, setCartItems] = useState([]);
 
     
-    useEffect(async () => {
-        try {
-            const user = await callApi( {
-                url: '/users/me',
-                token
-            });
-            if (user.id){
-            const cartResp = await callApi({
-                method:'GET',
-                url:'orders/cart',
-                token,
+    // useEffect(async () => {
+    //     try {
+    //         const user = await callApi( {
+    //             url: '/users/me',
+    //             token
+    //         });
+    //         if (user.id){
+    //         const cartResp = await callApi({
+    //             method:'GET',
+    //             url:'orders/cart',
+    //             token,
 
-            })
-            if (!cartResp.message){
-                setCart(cartResp.id)
-                if(cartResp.products && cartResp.products.length){
-                    setCartItems(cartResp.products)
-                }
-            }
+    //         })
+    //         if (!cartResp.message){
+    //             setCart(cartResp.id)
+    //             if(cartResp.products && cartResp.products.length){
+    //                 setCartItems(cartResp.products)
+    //             }
+    //         }
 
-            }
-        } catch (error) {
-            console.error(error)
-        }
-    }, [token])  
+    //         }
+    //     } catch (error) {
+    //         console.error(error)
+    //     }
+    // }, [token])  
 
     useEffect(() => {
         try {

@@ -3,7 +3,7 @@ import { useHistory } from "react-router";
 import { useContext } from "react";
 import { UserContext } from "../context/userContext";
 import { callApi } from "./util";
-import {TextField} from '@material-ui/core'
+import {TextField, Paper} from '@material-ui/core'
 
 
 const Register = ({ setUser  }) => {
@@ -44,7 +44,7 @@ const Register = ({ setUser  }) => {
     }
   };
   return (
-    <> 
+    <Paper elevation={3}> 
       <h1>Hi there, please register below! </h1>
       {
         isLoggedIn ? 
@@ -88,7 +88,7 @@ const Register = ({ setUser  }) => {
         <button type="submit" disabled={password.length < 8}> Submit</button>
       </form>
       }
-    </>
+    </Paper>
   );
 };
 
