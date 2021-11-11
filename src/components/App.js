@@ -17,7 +17,8 @@ import {
   Orders,
   Profile,
   Home,
-  Cart
+  Cart,
+  Search
 } from '../components';
 import { callApi } from './util';
 
@@ -117,6 +118,7 @@ return (
       <Cart products={products} setProducts={setProducts} cartItems={cartItems} addProductToCart={addProductToCart} />
     </Route>
     <Route exact path='/'>
+      <Search products={products} setProducts={setProducts} fetchProducts={fetchProducts} />
       <Products products={products} setProducts={setProducts} />
     </Route>
     <Route exact path='/orders'>
