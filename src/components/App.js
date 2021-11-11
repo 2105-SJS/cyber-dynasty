@@ -3,6 +3,7 @@ import { useParams } from 'react-router';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { useContext } from 'react';
 import { UserContext } from '../context/userContext';
+import {Container} from '@material-ui/core'
 
 import {
   getSomething
@@ -97,7 +98,7 @@ const App = () => {
 }, [])  
 
 return (
-  <div>
+  <Container maxWidth='lg'>
     <Route exact path='/home'>
       <Home user={user} setUser={setUser} />
     </Route>
@@ -122,7 +123,7 @@ return (
     <Route exact path='/accounts/register'>
       <Register setUser = {setUser} />
     </Route>
-  </div>
+  </Container>
 )
 }
 
