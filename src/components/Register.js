@@ -6,8 +6,8 @@ import { callApi } from "./util";
 import {TextField} from '@material-ui/core'
 
 
-const Register = ({ setUser, token, setToken }) => {
-  const { isLoggedIn, setIsLoggedIn, setUserToken } = useContext(UserContext);
+const Register = ({ setUser  }) => {
+  const { token, isLoggedIn, setIsLoggedIn, setToken } = useContext(UserContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -36,8 +36,8 @@ const Register = ({ setUser, token, setToken }) => {
         setUser(userResp.user.username);
         setIsLoggedIn(true);
         if (userResp.user.firstName) {
-          alert(`Welcome ${firstName}, Thank you for registering `)
-          history.push('/home');
+          alert(`Welcome ${firstName}, Thank you for registering!!`)
+          history.push('/products');
         }
       }
     } catch (error) {

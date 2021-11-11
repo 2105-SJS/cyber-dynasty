@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 import {Card, Typography} from '@material-ui/core'
 import Image from 'material-ui-image'
 
@@ -10,6 +11,9 @@ const ProductDetail = ({ product, children}) => {
             <Typography>Price: {product.retailPrice}</Typography>
             <Typography>{product.colorway}</Typography>
             <Image src={product.thumbnail} />
+            {
+                children
+            }
         </div>
         : 'Loading.......'
     )

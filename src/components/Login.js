@@ -4,11 +4,10 @@ import { callApi } from './util';
 import { UserContext } from "../context/userContext";
 import {Typography, Button, TextField} from '@material-ui/core'
 
-const Login = ({ setUser, token}) => {
+const Login = ({ setUser }) => {
     const { isLoggedIn, setIsLoggedIn, setToken } = useContext(UserContext);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [loginMessage, setLoginMessage] = useState("");
     const history = useHistory();
 
     return <>
@@ -28,14 +27,12 @@ const Login = ({ setUser, token}) => {
                     });
                     console.log({username, password})
                     console.log('mangoLogin: ', loginResp)
-                    if(loginResp) {
+                    if(loginResp && loginResp.token) {
                         setToken(loginResp.token);
-                        setIsLoggedIn(true)
+                        setIsLoggedIn(true);
                         setUser(username);
-                        if(loginResp.token) {
-                            alert(`Hello, you are logged in as ${username} `)
-                            history.push('/home');
-                        }
+                        alert(`Hello, you are logged in as ${username} `);
+                        history.push('/products');
                     }
                 }}>
                     <TextField type="text" placeholder="Enter Username" minLength={8} value={username} onChange={(event) => setUsername(event.target.value)}></TextField>
