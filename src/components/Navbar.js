@@ -57,8 +57,8 @@ const Navbar =()=>{
             <Toolbar >
             <Typography variant='h5' className={classes.nav}>
                 <div className={classes.container}>
-                    <Link to='/home'className={classes.links}>Home</Link>
-                    <Link to='/products'className={classes.links}>Products</Link>
+                    {/* <Link to='/home'className={classes.links}>Home</Link> */}
+                    <Link to='/'className={classes.links}>Products</Link>
                     <Link to='/cart'className={classes.links}><Icon className={classes.icons}>shopping cart</Icon></Link>
                 </div>
                 {isLoggedIn ? 

@@ -29,7 +29,7 @@ const Product = ({products, addProductToCart}) => {
     return <>
         {
             <ProductDetail product={productDetails}>
-                <Link to='/products' >Back</Link>
+                <Link to='/' >Back</Link>
                 <button type="submit" onClick={() => {addProductToCart({productId: productDetails.id, orderId: orderId, price: productDetails.retailPrice, quantity: 1})}}>Add to Cart</button>
             </ProductDetail>
         }
