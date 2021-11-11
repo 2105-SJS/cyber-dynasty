@@ -31,7 +31,7 @@ const Login = ({ setUser }) => {
                         setIsLoggedIn(true);
                         setUser(username);
                         alert(`Hello, you are logged in as ${username} `);
-                        history.push('/products');
+                        history.push('/');
                     }
                 }}>
                     <TextField type="text" placeholder="Enter Username" minLength={8} value={username} onChange={(event) => setUsername(event.target.value)}></TextField>

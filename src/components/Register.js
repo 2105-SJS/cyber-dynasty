@@ -36,7 +36,7 @@ const Register = ({ setUser  }) => {
         setIsLoggedIn(true);
         if (userResp.user.firstName) {
           alert(`Welcome ${firstName}, Thank you for registering!!`)
-          history.push('/products');
+          history.push('/');
         }
       }
     } catch (error) {

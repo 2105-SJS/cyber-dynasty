@@ -110,13 +110,13 @@ const App = () => {
 return (
   <div className={classes.page}>
   <Container maxWidth='lg'>
-    <Route exact path='/home'>
+    {/* <Route exact path='/home'>
       <Home user={user} setUser={setUser} />
-    </Route>
+    </Route> */}
     <Route exact path='/cart'>
       <Cart products={products} setProducts={setProducts} cartItems={cartItems} addProductToCart={addProductToCart} />
     </Route>
-    <Route exact path='/products'>
+    <Route exact path='/'>
       <Products products={products} setProducts={setProducts} />
     </Route>
     <Route exact path='/orders'>
