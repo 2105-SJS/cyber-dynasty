@@ -8,8 +8,8 @@ export const UserProvider = ({children})=>{
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     useEffect(() => {
         try {
-            if(localStorage.getItem("token") != '') {
-                setToken(localStorage.getItem("token"))
+            if(localStorage.getItem('token') != '') {
+                setToken(localStorage.getItem('token'))
                 isLoggedIn(true)
             }
         } catch (error) {

@@ -1,7 +1,6 @@
 import React from "react";
 
 const Home = ({user}) => {
-    console.log("user in home page", user)
     return <>
         <h1>Welcome to the Programming Kicks</h1>
         {/* {

@@ -65,9 +65,8 @@ const Navbar =()=>{
                     <div className={classes.container}>
                         <Link to='/accounts'className={classes.links}><Icon className={classes.icons}>account_circle</Icon></Link>
                         <button className={classes.logout} onClick={() => {
-                        console.log("Clicked")
-                        localStorage.removeItem("token");
-                        localStorage.removeItem("username");
+
+                        localStorage.setItem('token', '')
                         setIsLoggedIn(false);
                         setToken("");
                         history.push("/");
@@ -85,7 +84,7 @@ const Navbar =()=>{
     
     )
 }
-console.log()
+
 
 export default Navbar;
 

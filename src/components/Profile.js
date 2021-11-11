@@ -10,12 +10,10 @@ const Profile = ({ user, setUser }) => {
     const history = useHistory();
     
     const handleSubmit = async () => {
-        console.log('token in profile', token)
         const profileResp = await callApi( {
             url: '/users/me',
             token
         });
-        console.log('user Profile response: ', profileResp);
         setUser(user.username)
         localStorage.setItem("token", token)
     }

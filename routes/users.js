@@ -12,7 +12,6 @@ const { requireUser } = require('./util')
 const { getOrdersByUser } = require('../db/orders')
 
 usersRouter.use((req, res, next) => {
-    console.log('A request is being made to /users');
     
     next();
 });

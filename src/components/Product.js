@@ -8,8 +8,6 @@ import { UserContext } from '../context/userContext';
 const Product = ({products, addProductToCart}) => {
     const [ productDetails, setProductDetails ] = useState([]);
     const params = useParams();
-    console.log('product ID ', params.productId)
-    console.log('details: ', productDetails)
     const { token } = useContext(UserContext);
 
     const fetchSingleProduct = async () => {
@@ -17,7 +15,6 @@ const Product = ({products, addProductToCart}) => {
           url: `/products/${params.productId}`,
           token
         });
-        console.log('singleProduct with Id: ', resp)
         if (resp) setProductDetails(resp)
     }
 
