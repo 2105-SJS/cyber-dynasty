@@ -1,18 +1,36 @@
 import React, {useState} from 'react';
-import {Card, Typography} from '@material-ui/core'
+import {Card, Typography, makeStyles} from '@material-ui/core'
 import Image from 'material-ui-image'
 import { Link } from 'react-router-dom'
 
+
+
+const useStyles = makeStyles({
+    card:{
+        padding:'1rem',
+        margin:'1rem'
+    },
+    info:{
+        display:'flex',
+        flexFlow:'row nowrap',
+        justifyContent:'space-between'
+
+    }
+})
+
 const ProductSingle = ({ product, children }) => {
+    const classes = useStyles()
     return (product ? 
-        <Card>
-            <hr></hr>
-            <Typography><b>Brand: </b>{product.brand}</Typography>
-            <Typography><b>Shoe Name: </b>{product.shoeName}</Typography>
-            <Typography><b>Retail Price: </b>{product.retailPrice}</Typography>
-            <Typography><b>inStock? </b>{product.inStock ? 'true' : 'false'}</Typography>
-            <Image src={product.thumbnail} />
-            <Link to={`/products/${product.id}`}  >Details</Link>
+        <Card className={classes.card}>
+            <Link to={`/products/${product.id}`}  >
+                <Image src={product.thumbnail} />
+            </Link>
+            {/* <Typography>{product.brand}</Typography> */}
+            <Typography>{product.shoeName}</Typography>
+            <Typography className={classes.info}>
+                <>{product.inStock ? '$'+product.retailPrice : 'Out Of Stock'}</>
+                <Link to={`/products/${product.id}`}  >Details</Link>
+            </Typography>
         </Card>
         : 'Loading......')
 }
