@@ -5,18 +5,6 @@ import { ProductSingle } from ".";
 
 const Cart = ({cartItems, setCartItems, getCart}) => {
     const { token } = useContext(UserContext);
-    // console.log("cartItems in cart", cartItems)
-    // const handleCartButton = async () => {
-    //     const cartResp = await callApi({
-    //         method: "GET",
-    //         url: '/orders/cart',
-    //         token
-    //     });
-    //     console.log("cart stuff ", cartResp);
-    //     if(cartResp) {
-    //         setCartItems(cartResp);
-    //     }
-    // }
     const { products } = cartItems;
     if(products) {
         return <>

@@ -17,19 +17,15 @@ const Profile = ({ user, setUser }) => {
         setUser(user.username)
         localStorage.setItem("token", token)
     }
-    // if(!token) {
-        //     history.push('/')
-        // }
-        
-        
-        return <>
-    <h1>My Profile</h1>
-    <form onSubmit={ async (event) => {
-        event.preventDefault();
-        await handleSubmit();
-    }}>
-        <button type="submit">My Orders</button>
-    </form>
+           
+    return <>
+        <h1>My Profile</h1>
+        <form onSubmit={ async (event) => {
+            event.preventDefault();
+            await handleSubmit();
+        }}>
+            <button type="submit">My Orders</button>
+        </form>
 
     </>
 }
