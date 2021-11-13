@@ -41,7 +41,6 @@ const About = () => {
                     <Typography>Xavier Loera Flores</Typography>
                     <Link target="_blank" rel="noreferrer" href='https://github.com/xavierloeraflores'>GitHub</Link>
                     <Link target="_blank" rel="noreferrer" href=' https://www.linkedin.com/in/xavierloeraflores/ '>LinkedIn</Link>
-                    <Link target="_blank" rel="noreferrer" href='  '>Twitter</Link>
                     </div>
                 </ div >
             </Grid>
@@ -53,7 +52,6 @@ const About = () => {
                     <Typography>Rubal Kaur</Typography>
                     <Link target="_blank" rel="noreferrer" href=' https://github.com/rubalkaur1903 '>GitHub</Link>
                     <Link target="_blank" rel="noreferrer" href='  https://www.linkedin.com/in/rubalkaur/'>LinkedIn</Link>
-                    <Link target="_blank" rel="noreferrer" href='  '>Twitter</Link>
                     </div>
                 </ div >
             </Grid>
@@ -65,7 +63,6 @@ const About = () => {
                     <Typography>Jimmy dang</Typography>
                     <Link target="_blank" rel="noreferrer" href='https://github.com/soondubusoup  '>GitHub</Link>
                     <Link target="_blank" rel="noreferrer" href=' https://www.linkedin.com/in/jimmyqdang/ '>LinkedIn</Link>
-                    <Link target="_blank" rel="noreferrer" href='  '>Twitter</Link>
                     </div>
                 </ div >
             </Grid>
@@ -77,7 +74,6 @@ const About = () => {
                     <Typography>Aaron Rosati</Typography>
                     <Link target="_blank" rel="noreferrer" href='https://github.com/aaronrosati  '>GitHub</Link>
                     <Link target="_blank" rel="noreferrer" href=' https://www.linkedin.com/in/aaronrosati/ '>LinkedIn</Link>
-                    <Link target="_blank" rel="noreferrer" href='  '>Twitter</Link>
                     </div>
                 </ div >
             </Grid>
