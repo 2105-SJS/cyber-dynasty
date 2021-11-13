@@ -18,7 +18,8 @@ import {
   Profile,
   Home,
   Cart,
-  Search
+  Search, 
+  About
 } from '../components';
 import { callApi } from './util';
 
@@ -162,6 +163,9 @@ return (
     </Route>
     <Route exact path='/accounts/register'>
       <Register setUser = {setUser} />
+    </Route>
+    <Route exact path='/about'>
+      <About/>
     </Route>
   </Container>
   </div>
