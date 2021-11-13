@@ -42,7 +42,6 @@ ordersRouter.post('/', requireUser, async (req, res, next) => {
     const { status, userId } = req.body;
     try {
         const newOrder = await createOrder({status, userId});
-        console.log("if the order is created", newOrder)
         res.send({newOrder})
     } catch ({name, message}) {
         next({

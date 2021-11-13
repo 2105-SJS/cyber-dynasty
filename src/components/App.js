@@ -39,29 +39,18 @@ const App = () => {
   const [user, setUser] = useState('');
   const [cartItems, setCartItems] = useState({});
 
-  const { token, setToken, isLoggedIn } = useContext(UserContext);
+  const { token } = useContext(UserContext);
   const params = useParams();
 
-  const addProductToCart = async ({productId, orderId, price, quantity}) => {
-    const order = await callApi({
-      method: "POST",
-      url: `/orders/${orderId}/products`,
-      body: {
-        productId,
-        orderId,
-        price,
-        quantity
-      },
-      token
-    })
-    console.log('addProduct to cart in App.js: ', order)
-  }
-
   const createCart = async (userId) => {
+    console.log("userId in createCart in App.js", userId)
     try {
       const resp = await callApi({
         method: 'POST',
         url: '/orders',
+        body: {
+          userId
+        },
         token
       });
       console.log("createOrder resp in App.js: ", resp)
@@ -76,6 +65,7 @@ const App = () => {
   const getCart = async () => {
     try {
       const cartResp = await callApi({
+        method: "GET",
         url: '/orders/cart',
         token
       });
@@ -96,7 +86,6 @@ const App = () => {
     const response = await callApi({
       url: '/products'
     });
-
     const allProducts = response;
     if(allProducts) setProducts(allProducts);
   }
@@ -106,8 +95,7 @@ const App = () => {
       url: `/orders`,
       token
     });
-    console.log("orders response in app.js", resp)
-    if(resp) setOrders();
+    if(resp) setOrders(resp);
   }
 
   useEffect(() => {
@@ -157,7 +145,7 @@ return (
       <Home user={user} setUser={setUser} />
     </Route> */}
     <Route exact path='/cart'>
-      <Cart products={products} getCart={getCart} setProducts={setProducts} cartItems={cartItems} setCartItems={setCartItems} addProductToCart={addProductToCart} />
+      <Cart products={products} getCart={getCart} setProducts={setProducts} cartItems={cartItems} setCartItems={setCartItems} />
     </Route>
     <Route exact path='/'>
       <Search products={products} setProducts={setProducts} fetchProducts={fetchProducts} />
@@ -170,7 +158,7 @@ return (
       <Profile user={user} setUser={setUser} />
     </Route>
     <Route exact path='/products/:productId'>
-      <Product products={products} getCart={getCart} setProducts={setProducts} cartItems={cartItems} setCartItems={setCartItems} addProductToCart={addProductToCart} />
+      <Product products={products} getCart={getCart} setProducts={setProducts} cartItems={cartItems} setCartItems={setCartItems} />
     </Route>
     <Route exact path='/accounts/login'>
       <Login setUser={setUser} />

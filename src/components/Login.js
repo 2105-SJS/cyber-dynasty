@@ -9,7 +9,6 @@ const Login = ({ setUser }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const history = useHistory();
-    const { token } = useContext(UserContext)
 
     return <Paper elevation={3}>
         <Typography variant='h3'>Login</Typography>

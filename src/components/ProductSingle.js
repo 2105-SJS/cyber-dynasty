@@ -1,10 +1,9 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext} from 'react';
 import {Card, Typography, makeStyles} from '@material-ui/core'
 import Image from 'material-ui-image'
 import { Link } from 'react-router-dom'
 import { callApi } from './util';
 import { UserContext } from '../context/userContext';
-
 
 
 const useStyles = makeStyles({
