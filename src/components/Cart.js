@@ -2,20 +2,43 @@ import React, { useContext} from "react";
 import { callApi } from "./util";
 import { UserContext } from "../context/userContext";
 import { ProductSingle } from ".";
+import {Card,  Typography, Grid, makeStyles } from '@material-ui/core'
+import Image from 'material-ui-image'
+
+
+const useStyles = makeStyles({
+    card:{
+        padding:'1rem',
+        margin:'1rem'
+    },
+    info:{
+        display:'flex',
+        flexFlow:'row nowrap',
+        justifyContent:'space-between'
+
+    }
+})
+
+
 
 const Cart = ({cartItems, setCartItems, getCart}) => {
+    const classes = useStyles()
     const { token } = useContext(UserContext);
     const { products } = cartItems;
     if(products) {
-        return <>
+        return <Grid container columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
             {
-                products.map(product => <div>
-                    <div>{product.shoeName}</div>
-                    <div>{product.price}</div>
-                    <img src={product.thumbnail} />
-                </div>)
+                products.map(product => 
+                <Grid key={product.id} item xs={12} sm={6} md={4} lg={3}>
+                <Card className= {classes.card}>
+                    <Image src={product.thumbnail} />
+                    <Typography>{product.shoeName}</Typography>
+                    <Typography>{product.price}</Typography>
+                </Card>
+                </Grid>
+                )
             }
-        </>
+        </Grid >
     } else {
         return <div>Nothing in the Cart</div>;
     }
