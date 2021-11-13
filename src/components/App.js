@@ -19,7 +19,7 @@ import {
   Home,
   Cart,
   Search, 
-  About
+  About,
 } from '../components';
 import { callApi } from './util';
 
@@ -27,7 +27,7 @@ import { callApi } from './util';
 const useStyles = makeStyles({
   page:{
     backgroundColor:'#7289DA',
-    minHeight:'100vh',
+    minHeight:'90vh',
     paddingTop:'2rem'
   }
 })
