@@ -25,7 +25,6 @@ const Login = ({ setUser }) => {
                             password
                         }
                     });
-                    console.log("login response in login.js", loginResp)
                     if(loginResp && loginResp.token) {
                         setToken(loginResp.token);
                         localStorage.setItem('token', loginResp.token);

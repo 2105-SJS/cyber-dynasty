@@ -10,8 +10,6 @@ const Product = ({products, addProductToCart, cartItems, setCartItems, getCart})
     const [quantity, setQuantity] = useState(1)
     const params = useParams();
     const { token } = useContext(UserContext);
-    
-    console.log('cart items in product.js', cartItems)
 
     const fetchSingleProduct = async () => {
         const resp = await callApi({

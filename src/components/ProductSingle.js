@@ -4,6 +4,7 @@ import Image from 'material-ui-image'
 import { Link } from 'react-router-dom'
 import { callApi } from './util';
 import { UserContext } from '../context/userContext';
+import { useHistory } from 'react-router';
 
 
 const useStyles = makeStyles({
@@ -22,17 +23,14 @@ const useStyles = makeStyles({
 const ProductSingle = ({ product, children, cartItems, getCart, setCartItems }) => {
     const classes = useStyles();
     const { token } = useContext(UserContext);
-
+    const history = useHistory();
     const handleAddProductToCart = async (event) => {
         event.preventDefault();
         try {
             if (cartItems && product) {
-                console.log("after first if statement: ", cartItems, product)
                 const productId = Number(product.id)
-                console.log("productId ", productId)
-                const { id } = cartItems;
+                const { id  } = cartItems;
                 const { retailPrice } = product;
-                console.log("id from cartItem: ", id)
                 if(id) {
                     const resp = await callApi({
                         method:'POST',
@@ -44,9 +42,9 @@ const ProductSingle = ({ product, children, cartItems, getCart, setCartItems }) 
                         },
                         token
                     });
-                    console.log('resp in handle add product to cart: ', resp)
-                    if (!resp) {
+                    if (resp) {
                         await getCart();
+                        history.push('/cart')
                         return resp;
                     }
                 }

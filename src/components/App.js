@@ -43,7 +43,6 @@ const App = () => {
   const params = useParams();
 
   const createCart = async (userId) => {
-    console.log("userId in createCart in App.js", userId)
     try {
       const resp = await callApi({
         method: 'POST',
@@ -53,7 +52,6 @@ const App = () => {
         },
         token
       });
-      console.log("createOrder resp in App.js: ", resp)
       if(resp) {
         setCartItems(resp)
       }
@@ -69,7 +67,6 @@ const App = () => {
         url: '/orders/cart',
         token
       });
-      console.log("cartResp in getCart", cartResp)
       if(!cartResp) {
         await createCart();
         await getCart();

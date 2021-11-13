@@ -21,10 +21,12 @@ ordersRouter.get('/', async (req, res, next) => {
 
 // GET /orders/cart
 ordersRouter.get('/cart', requireUser, async (req, res, next) => {
+    console.log("/cart route", req.user)
     try {
         if (req.user) {
             const { id } = req.user;
             const cart = await getCartByUser({ id });
+            console.log("Cart in route /cart", cart)
             if (cart) {
                 res.send(cart);
             };
@@ -40,8 +42,11 @@ ordersRouter.get('/cart', requireUser, async (req, res, next) => {
 // POST /orders
 ordersRouter.post('/', requireUser, async (req, res, next) => {
     const { status, userId } = req.body;
+    const { id } = req.user;
+    console.log("userId", userId)
     try {
-        const newOrder = await createOrder({status, userId});
+        const newOrder = await createOrder({status, userId: userId || id});
+        console.log("new Order in post /", newOrder)
         res.send({newOrder})
     } catch ({name, message}) {
         next({
