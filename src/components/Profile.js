@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom'
 import { callApi } from './util';
 import { useContext } from 'react';
 import { UserContext } from '../context/userContext';
+import {Paper, Typography, makeStyles} from '@material-ui/core'
 
 
 const Profile = ({ user, setUser }) => {
@@ -18,7 +19,7 @@ const Profile = ({ user, setUser }) => {
         localStorage.setItem("token", token)
     }
            
-    return <>
+    return <Paper>
         <h1>My Profile</h1>
         <form onSubmit={ async (event) => {
             event.preventDefault();
@@ -27,7 +28,7 @@ const Profile = ({ user, setUser }) => {
             <button type="submit">My Orders</button>
         </form>
 
-    </>
+    </Paper>
 }
 
 
