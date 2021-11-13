@@ -9,6 +9,7 @@ const Login = ({ setUser }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const history = useHistory();
+    const { token } = useContext(UserContext)
 
     return <Paper elevation={3}>
         <Typography variant='h3'>Login</Typography>
@@ -25,9 +26,10 @@ const Login = ({ setUser }) => {
                             password
                         }
                     });
+                    console.log("login response in login.js", loginResp)
                     if(loginResp && loginResp.token) {
                         setToken(loginResp.token);
-                        localStorage.setItem("token", loginResp.token);
+                        localStorage.setItem('token', loginResp.token);
                         setIsLoggedIn(true);
                         setUser(username);
                         alert(`Hello, you are logged in as ${username} `);

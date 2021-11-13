@@ -60,7 +60,7 @@ async function createTables() {
               "orderId" INTEGER REFERENCES orders(id),
               UNIQUE ("productId", "orderId"),
               price NUMERIC NOT NULL,
-              quantity INTEGER NOT NULL DEFAULT 0
+              quantity INTEGER DEFAULT 0
             )
       `);
       } catch (error) {

@@ -3,7 +3,7 @@ import {Grid} from '@material-ui/core'
 
 import { ProductSingle } from '.';
 
-const Products = ({ products }) => {
+const Products = ({ products, cartItems, getCart, setCartItems }) => {
 
     return <Grid container columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
     {
@@ -11,7 +11,7 @@ const Products = ({ products }) => {
             if(idx%10==0)setTimeout(1000)//drastically improves load times
             return(    
                 <Grid key={product.id} item xs={12} sm={6} md={4} lg={3}>
-                <ProductSingle product={product} key={product.id} />
+                <ProductSingle product={product} key={product.id} getCart={getCart} cartItems={cartItems} setCartItems={setCartItems} />
                 </Grid>
             )
         })
