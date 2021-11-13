@@ -37,7 +37,7 @@ const App = () => {
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
   const [user, setUser] = useState('');
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState({});
 
   const { token, setToken, isLoggedIn } = useContext(UserContext);
   const params = useParams();
@@ -48,10 +48,48 @@ const App = () => {
       url: `/orders/${orderId}/products`,
       body: {
         productId,
+        orderId,
         price,
         quantity
-      }
+      },
+      token
     })
+    console.log('addProduct to cart in App.js: ', order)
+  }
+
+  const createCart = async (userId) => {
+    try {
+      const resp = await callApi({
+        method: 'POST',
+        url: '/orders',
+        token
+      });
+      console.log("createOrder resp in App.js: ", resp)
+      if(resp) {
+        setCartItems(resp)
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const getCart = async () => {
+    try {
+      const cartResp = await callApi({
+        url: '/orders/cart',
+        token
+      });
+      console.log("cartResp in getCart", cartResp)
+      if(!cartResp) {
+        await createCart();
+        await getCart();
+      }
+      if (cartResp) {
+        setCartItems(cartResp);
+      }
+    } catch (error) {
+      console.error(error)
+    }
   }
 
   const fetchProducts = async() => {
@@ -63,11 +101,12 @@ const App = () => {
     if(allProducts) setProducts(allProducts);
   }
 
-  const fetchOrders = async (orderId) => {
+  const fetchOrders = async () => {
     const resp = await callApi({
-      url: `/orders/${params.orderId}`,
+      url: `/orders`,
       token
     });
+    console.log("orders response in app.js", resp)
     if(resp) setOrders();
   }
 
@@ -81,6 +120,9 @@ const App = () => {
 
   useEffect(() => {
     try {
+      if (token) {
+        getCart()
+      }
         fetchOrders();
     } catch (error) {
         console.error(error);
@@ -115,11 +157,11 @@ return (
       <Home user={user} setUser={setUser} />
     </Route> */}
     <Route exact path='/cart'>
-      <Cart products={products} setProducts={setProducts} cartItems={cartItems} addProductToCart={addProductToCart} />
+      <Cart products={products} getCart={getCart} setProducts={setProducts} cartItems={cartItems} setCartItems={setCartItems} addProductToCart={addProductToCart} />
     </Route>
     <Route exact path='/'>
       <Search products={products} setProducts={setProducts} fetchProducts={fetchProducts} />
-      <Products products={products} setProducts={setProducts} />
+      <Products products={products} setProducts={setProducts} getCart={getCart} cartItems={cartItems} setCartItems={setCartItems} />
     </Route>
     <Route exact path='/orders'>
       <Orders orders={orders} />
@@ -128,7 +170,7 @@ return (
       <Profile user={user} setUser={setUser} />
     </Route>
     <Route exact path='/products/:productId'>
-      <Product products={products} setProducts={setProducts} addProductToCart={addProductToCart} />
+      <Product products={products} getCart={getCart} setProducts={setProducts} cartItems={cartItems} setCartItems={setCartItems} addProductToCart={addProductToCart} />
     </Route>
     <Route exact path='/accounts/login'>
       <Login setUser={setUser} />

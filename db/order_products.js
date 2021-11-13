@@ -41,6 +41,7 @@ const addProductToOrder = async ({ orderId, productId, price, quantity }) => {
         })
         if (!isInOrder) {
            const newOrderProduct = await createOrderProduct({ orderId, productId, price, quantity });
+           console.log("newOrderProduct in routes: ", newOrderProduct)
            return newOrderProduct;
         }
         let addProduct = {}
@@ -84,7 +85,7 @@ const updateOrderProduct = async ({ id, price, quantity }) => {
 
 const destroyOrderProduct = async (id) => {
     try {
-        const deletedOrderProduct = await client.query(`
+        const {rows: [deletedOrderProduct]} = await client.query(`
             DELETE order_products
             WHERE id = $1
             RETURNING *;

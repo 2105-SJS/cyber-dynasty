@@ -21,16 +21,20 @@ ordersRouter.get('/', async (req, res, next) => {
 
 // GET /orders/cart
 ordersRouter.get('/cart', requireUser, async (req, res, next) => {
-    const { id } = req.user;
     try {
-        const cartOrders = await getCartByUser({id});
-        res.send(cartOrders)
-    } catch ({name, message}) {
-        next({
-            name: 'OrdersCartError',
-            message: 'No orders in the cart!'
-        })
-    }
+        if (req.user) {
+            const { id } = req.user;
+            const cart = await getCartByUser({ id });
+            if (cart) {
+                res.send(cart);
+            };
+        } else {
+            res.status(500);
+            res.send('Cart not found')
+        };       
+    } catch (error) {
+        next(error);
+    };
 });
 
 // POST /orders
@@ -38,6 +42,7 @@ ordersRouter.post('/', requireUser, async (req, res, next) => {
     const { status, userId } = req.body;
     try {
         const newOrder = await createOrder({status, userId});
+        console.log("if the order is created", newOrder)
         res.send({newOrder})
     } catch ({name, message}) {
         next({
