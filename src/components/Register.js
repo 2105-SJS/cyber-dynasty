@@ -3,11 +3,11 @@ import { useHistory } from "react-router";
 import { useContext } from "react";
 import { UserContext } from "../context/userContext";
 import { callApi } from "./util";
-import {TextField} from '@material-ui/core'
+import {TextField, Paper} from '@material-ui/core'
 
 
-const Register = ({ setUser, token, setToken }) => {
-  const { isLoggedIn, setIsLoggedIn, setUserToken } = useContext(UserContext);
+const Register = ({ setUser  }) => {
+  const { token, isLoggedIn, setIsLoggedIn, setToken } = useContext(UserContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -29,15 +29,14 @@ const Register = ({ setUser, token, setToken }) => {
           username,
           password
       } });
-      console.log(userResp, "it worked", username, password);
       if (userResp && userResp.user.username) {
-        localStorage.setItem("token", token);
+        localStorage.setItem("token", userResp.token);
         setToken(userResp.user.token);
         setUser(userResp.user.username);
         setIsLoggedIn(true);
         if (userResp.user.firstName) {
-          alert(`Welcome ${firstName}, Thank you for registering `)
-          history.push('/home');
+          alert(`Welcome ${firstName}, Thank you for registering!!`)
+          history.push('/');
         }
       }
     } catch (error) {
@@ -45,7 +44,7 @@ const Register = ({ setUser, token, setToken }) => {
     }
   };
   return (
-    <> 
+    <Paper elevation={3}> 
       <h1>Hi there, please register below! </h1>
       {
         isLoggedIn ? 
@@ -89,7 +88,7 @@ const Register = ({ setUser, token, setToken }) => {
         <button type="submit" disabled={password.length < 8}> Submit</button>
       </form>
       }
-    </>
+    </Paper>
   );
 };
 

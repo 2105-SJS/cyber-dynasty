@@ -1,22 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router';
 import { ProductDetail } from '.';
 import { callApi } from './util';
+import { UserContext } from '../context/userContext';
 
-const Product = ({products, token}) => {
+const Product = ({products, addProductToCart, cartItems, setCartItems, getCart}) => {
     const [ productDetails, setProductDetails ] = useState([]);
+    const [quantity, setQuantity] = useState(1)
     const params = useParams();
-    console.log('product ID ', params.productId)
-    console.log('details: ', productDetails)
+    const { token } = useContext(UserContext);
 
     const fetchSingleProduct = async () => {
         const resp = await callApi({
           url: `/products/${params.productId}`,
           token
         });
-        console.log('singleProduct with Id: ', resp)
         if (resp) setProductDetails(resp)
-    }
+    } 
 
     useEffect(() => {
         try {
@@ -24,14 +25,11 @@ const Product = ({products, token}) => {
         } catch (error) {
           console.error(error);
         }
-    }, [token, params.productId])
-
-    
+    }, [token, params.productId]);
     return <>
-        <h1>Product</h1>
         {
-            <ProductDetail product={productDetails}>
-                {/* <button onClick={() => handleDetails(product.id)}>Details</button> */}
+            <ProductDetail product={productDetails} quantity={quantity} setQuantity={setQuantity}>
+                <Link to='/' >Back</Link>
             </ProductDetail>
         }
     </>

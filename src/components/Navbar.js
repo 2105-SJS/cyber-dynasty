@@ -57,17 +57,16 @@ const Navbar =()=>{
             <Toolbar >
             <Typography variant='h5' className={classes.nav}>
                 <div className={classes.container}>
-                    <Link to='/home'className={classes.links}>Home</Link>
-                    <Link to='/products'className={classes.links}>Products</Link>
+                    {/* <Link to='/home'className={classes.links}>Home</Link> */}
+                    <Link to='/'className={classes.links}>Products</Link>
                     <Link to='/cart'className={classes.links}><Icon className={classes.icons}>shopping cart</Icon></Link>
                 </div>
                 {isLoggedIn ? 
                     <div className={classes.container}>
                         <Link to='/accounts'className={classes.links}><Icon className={classes.icons}>account_circle</Icon></Link>
                         <button className={classes.logout} onClick={() => {
-                        console.log("Clicked")
-                        localStorage.removeItem("token");
-                        localStorage.removeItem("username");
+
+                        localStorage.setItem('token', '')
                         setIsLoggedIn(false);
                         setToken("");
                         history.push("/");
@@ -85,7 +84,7 @@ const Navbar =()=>{
     
     )
 }
-console.log()
+
 
 export default Navbar;
 

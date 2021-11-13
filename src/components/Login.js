@@ -2,16 +2,15 @@ import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { callApi } from './util';
 import { UserContext } from "../context/userContext";
-import {Typography, Button, TextField} from '@material-ui/core'
+import {Typography, Button, TextField, Paper} from '@material-ui/core'
 
-const Login = ({ setUser, token}) => {
+const Login = ({ setUser }) => {
     const { isLoggedIn, setIsLoggedIn, setToken } = useContext(UserContext);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [loginMessage, setLoginMessage] = useState("");
     const history = useHistory();
 
-    return <>
+    return <Paper elevation={3}>
         <Typography variant='h3'>Login</Typography>
         {
             isLoggedIn ? 
@@ -26,16 +25,13 @@ const Login = ({ setUser, token}) => {
                             password
                         }
                     });
-                    console.log({username, password})
-                    console.log('mangoLogin: ', loginResp)
-                    if(loginResp) {
+                    if(loginResp && loginResp.token) {
                         setToken(loginResp.token);
-                        setIsLoggedIn(true)
+                        localStorage.setItem('token', loginResp.token);
+                        setIsLoggedIn(true);
                         setUser(username);
-                        if(loginResp.token) {
-                            alert(`Hello, you are logged in as ${username} `)
-                            history.push('/home');
-                        }
+                        alert(`Hello, you are logged in as ${username} `);
+                        history.push('/');
                     }
                 }}>
                     <TextField type="text" placeholder="Enter Username" minLength={8} value={username} onChange={(event) => setUsername(event.target.value)}></TextField>
@@ -44,7 +40,7 @@ const Login = ({ setUser, token}) => {
                 </form>
 
         }
-    </>
+    </Paper>
 }
 
 export default Login;

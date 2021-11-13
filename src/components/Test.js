@@ -6,7 +6,6 @@ const Test = () => {
     return (
         <button onClick = { async() => {
                 try {
-                  console.log("anything45")
                   const user = await callApi({ 
                   url: '/users/register',
                   method: "POST",
@@ -17,7 +16,6 @@ const Test = () => {
                       username: "Xavier514",
                       password: "xavierXavier"
                   } });
-                  console.log(user, "it worked");
                 //   if (user) {
                 //     // localStorage.setItem("token", token);
                 //     // setToken(user.token);

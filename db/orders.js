@@ -75,18 +75,22 @@ const getOrderByProduct = async ({id}) => {
 }
 
 const getCartByUser = async ({id}) =>{
+    console.log("id in getCartbyUser", id)
     try{
         if(!id) throw Error('missing id Parameter')
-        const {rows:[cart]} = await client.query(`
+        const {rows: [cart]} = await client.query(`
             SELECT * FROM orders
             WHERE "userId"=$1 AND status='created'`, [id])
-        const { rows: products} = await client.query(`
-            SELECT * FROM products
-            JOIN order_products ON products.id=order_products."productId"
-            WHERE order_products."orderId"=$1
-        `, [id]);
-        cart.products = products;
-        return cart
+            if(cart) {
+                const {id: cartId} = cart;
+                const { rows: products} = await client.query(`
+                    SELECT * FROM products
+                    JOIN order_products ON products.id=order_products."productId"
+                    WHERE order_products."orderId"=$1
+                `, [cartId]);
+                cart.products = products;
+                return cart
+            }
     }catch(error){
         throw error
     }
