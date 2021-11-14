@@ -4,6 +4,10 @@ import { UserContext } from "../context/userContext";
 import { ProductSingle } from ".";
 import {Card,  Typography, Grid, makeStyles } from '@material-ui/core'
 import Image from 'material-ui-image'
+import { StripeCheckoutButton } from ".";
+
+
+
 
 
 const useStyles = makeStyles({
@@ -38,10 +42,13 @@ const Cart = ({cartItems, setCartItems, getCart}) => {
                 </Grid>
                 )
             }
+            <StripeCheckoutButton />
         </Grid >
     } else {
         return <div>Nothing in the Cart</div>;
     }
+
+    
 
 
     // return <>
@@ -51,5 +58,7 @@ const Cart = ({cartItems, setCartItems, getCart}) => {
     //     >View Cart</button> */}
     // </>
 }
+
+
 
 export default Cart;
