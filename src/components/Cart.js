@@ -30,7 +30,14 @@ const Cart = ({cartItems, setCartItems, getCart}) => {
     const { token } = useContext(UserContext);
     const { products } = cartItems;
     if(products) {
-        return <Grid container columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+        let price = 0
+        products.forEach((product, idx)=>{
+            price+=Number(product.price)
+            console.log({idx, price})
+        })
+        return<> 
+        
+        <Grid container columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
             {
                 products.map(product => 
                 <Grid key={product.id} item xs={12} sm={6} md={4} lg={3}>
@@ -42,8 +49,9 @@ const Cart = ({cartItems, setCartItems, getCart}) => {
                 </Grid>
                 )
             }
-            <StripeCheckoutButton />
         </Grid >
+            <StripeCheckoutButton price = {price}/>
+        </>
     } else {
         return <div>Nothing in the Cart</div>;
     }
