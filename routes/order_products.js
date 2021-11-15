@@ -1,5 +1,6 @@
 const express = require('express');
-const { updateOrderProduct, destroyOrderProduct } = require('../db/order_products');
+const { getOrderById } = require('../db/orders');
+const { updateOrderProduct, destroyOrderProduct, getOrderProductById } = require('../db/order_products');
 const { requireUser } = require('./util');
 const orderProductRouter = express.Router();
 
@@ -19,8 +20,21 @@ orderProductRouter.patch('/:orderProductId', requireUser, async (req, res, next)
 orderProductRouter.delete('/:orderProductId', requireUser, async (req, res, next) => {
     try {
         const { orderProductId } = req.params;
-        const deletedOrderProduct = await destroyOrderProduct({orderProductId});
-        res.send(deletedOrderProduct);
+        const userId = req.user.id;
+        const orderProduct = await getOrderProductById(orderProductId);
+        if (orderProduct) {
+            const {orderId} = orderProduct;
+            const order = await getOrderById(orderId);
+            if(order && order.userId === userId) {
+                const deletedOrderProduct = await destroyOrderProduct(orderProductId);
+                if(deletedOrderProduct) {
+                    next({
+                        name: 'DeleteSuccess',
+                        message: 'Product was removed from the cart successfully!'
+                    })
+                }
+            }
+        }
     } catch ({name, message}) {
         next({name, message})
     }

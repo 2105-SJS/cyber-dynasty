@@ -2,8 +2,9 @@ const { client } = require('./client');
 
 const getOrderProductById = async (id) => {
     try {
-        const orderProducts = await client.query(`
-            SELECT * from order_products
+        const { rows: [orderProducts]} = await client.query(`
+            SELECT * 
+            FROM order_products
             WHERE id=$1
         `, [id]);
         return orderProducts;
@@ -41,7 +42,6 @@ const addProductToOrder = async ({ orderId, productId, price, quantity }) => {
         })
         if (!isInOrder) {
            const newOrderProduct = await createOrderProduct({ orderId, productId, price, quantity });
-           console.log("newOrderProduct in routes: ", newOrderProduct)
            return newOrderProduct;
         }
         let addProduct = {}
@@ -85,12 +85,12 @@ const updateOrderProduct = async ({ id, price, quantity }) => {
 
 const destroyOrderProduct = async (id) => {
     try {
-        const {rows: [deletedOrderProduct]} = await client.query(`
-            DELETE order_products
+       const { rows: [deletedItem] } = await client.query(`
+            DELETE FROM order_products
             WHERE id = $1
             RETURNING *;
         `, [id]);
-        return deletedOrderProduct;
+        return deletedItem;
     } catch (error) {
         throw error;
     }

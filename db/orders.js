@@ -1,13 +1,16 @@
 const {client} = require('./client')
 
-const getOrderById=async (id)=>{
+const getOrderById = async (id)=>{
 try{
         if(!id)throw Error('missing order id')
         const {rows:[order]}= await client.query(`
-        SELECT * FROM orders
-        WHERE id=$1`,[id])
+            SELECT * 
+            FROM orders
+            WHERE id=$1`
+        ,[id]);
         const { rows: products} = await client.query(`
-            SELECT * FROM products
+            SELECT * 
+            FROM products
             JOIN order_products ON products.id=order_products."productId"
             WHERE order_products."orderId"=$1
         `, [id]);
@@ -18,7 +21,7 @@ try{
     }
 }
 
-const getAllOrders = async  () =>{
+const getAllOrders = async  () => {
     try {
         const {rows:orders}= await client.query(`SELECT * FROM orders`)
         orders.forEach( async (order) => {
@@ -75,7 +78,6 @@ const getOrderByProduct = async ({id}) => {
 }
 
 const getCartByUser = async ({id}) =>{
-    console.log("id in getCartbyUser", id)
     try{
         if(!id) throw Error('missing id Parameter')
         const {rows: [cart]} = await client.query(`
@@ -112,7 +114,7 @@ const createOrder = async ({status, userId}) =>{
 }
 
 
-const cancelOrder=async (id)=>{
+const cancelOrder = async (id)=>{
     try{
             if(!id)throw Error('missing order id')
             const {rows:[order]}= await client.query(`
@@ -127,20 +129,20 @@ const cancelOrder=async (id)=>{
         }
     } 
 
-const completeOrder=async (id)=>{
+const completeOrder = async (id)=>{
     try{
-            if(!id)throw Error('missing order id')
-            const {rows:[order]}= await client.query(`
+        if(!id)throw Error('missing order id')
+        const {rows:[order]}= await client.query(`
             UPDATE orders
             SET status=$2
             WHERE id=$1
             RETURNING *
-            `,[id, 'completed'])
-            return order;
-        }catch(error){
+        `,[id, 'completed'])
+        return order;
+    }catch(error){
             throw error
-        }
-    } 
+    }
+}
 
 module.exports = {
     getOrderById,

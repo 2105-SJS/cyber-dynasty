@@ -2,6 +2,7 @@ export { default as App } from './App';
 export {default as Navbar} from './Navbar';
 
 export { default as ProductSingle } from './ProductSingle';
+export { default as CartProducts } from './CartProducts';
 export { default as Products } from './Products';
 export { default as ProductDetail } from './ProductDetail';
 

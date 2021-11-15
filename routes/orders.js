@@ -2,8 +2,9 @@ const express = require('express');
 const { getAllProducts } = require('../db');
 const ordersRouter = express.Router();
 
-const { getAllOrders, getCartByUser, createOrder } = require('../db');
-const { addProductToOrder } = require("../db/order_products")
+const { getAllOrders, getCartByUser, createOrder, getOrderProductByOrderAndProduct } = require('../db');
+const { addProductToOrder } = require("../db/order_products");
+const orderProductRouter = require('./order_products');
 const { requireUser } = require('./util');
 
 // GET /orders
@@ -21,12 +22,10 @@ ordersRouter.get('/', async (req, res, next) => {
 
 // GET /orders/cart
 ordersRouter.get('/cart', requireUser, async (req, res, next) => {
-    console.log("/cart route", req.user)
     try {
         if (req.user) {
             const { id } = req.user;
             const cart = await getCartByUser({ id });
-            console.log("Cart in route /cart", cart)
             if (cart) {
                 res.send(cart);
             };
@@ -43,10 +42,8 @@ ordersRouter.get('/cart', requireUser, async (req, res, next) => {
 ordersRouter.post('/', requireUser, async (req, res, next) => {
     const { status, userId } = req.body;
     const { id } = req.user;
-    console.log("userId", userId)
     try {
         const newOrder = await createOrder({status, userId: userId || id});
-        console.log("new Order in post /", newOrder)
         res.send({newOrder})
     } catch ({name, message}) {
         next({
