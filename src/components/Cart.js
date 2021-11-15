@@ -3,7 +3,7 @@ import { UserContext } from "../context/userContext";
 import {Card,  Typography, Grid, makeStyles } from '@material-ui/core'
 import Image from 'material-ui-image'
 import { StripeCheckoutButton } from ".";
-
+import { Link } from 'react-router-dom';
 import { CartProducts } from ".";
 
 const useStyles = makeStyles({
@@ -40,6 +40,7 @@ const Cart = ({cartItems, getCart}) => {
             }
         </Grid >
             <StripeCheckoutButton price = {price}/>
+            <Link to='/'>Back</Link>
 
         </>
     } else {
