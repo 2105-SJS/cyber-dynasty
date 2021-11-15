@@ -4,7 +4,7 @@ import { UserContext } from "../context/userContext";
 import {Card,  Typography, Grid, makeStyles } from '@material-ui/core'
 import Image from 'material-ui-image'
 import { useHistory, useParams } from 'react-router';
-import { Link } from 'react-router-dom';
+
 
 const useStyles = makeStyles({
     card:{
@@ -41,7 +41,6 @@ const CartProducts = ({product, cartItems, getCart}) => {
     };
 
     return <>
-        <Link to='/'>Back</Link>
         <Card className= {classes.card}>
             <Image src={product.thumbnail} />
             <Typography>{product.shoeName}</Typography>
