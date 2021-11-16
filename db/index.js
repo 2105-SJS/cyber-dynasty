@@ -10,7 +10,9 @@ const {
 const {
   getAllOrders,
   getCartByUser,
-  createOrder
+  createOrder,
+  getOrderById,
+  getOrderProductByOrderAndProduct
 } = require('./orders')
 
-module.exports = { createProduct, getAllProducts, getProductById, getAllOrders, getCartByUser, createOrder}
+module.exports = { createProduct, getAllProducts, getProductById, getAllOrders, getCartByUser, createOrder, getOrderById }
